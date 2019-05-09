@@ -1,8 +1,41 @@
 {% extends "info/base_template.html" %}
 {% load static %}
 
+{% block title %}About Me{% endblock %}
+
 {% block content %}
-<main>
-  About
+<main id="about">
+  <h1 class="lg-heading">
+    About
+    <span class="text-secondary">Me</span>
+  </h1>
+  <h2 class="sm-heading">Who am I...</h2>
+  <div class="about-info">
+    <img src="{% static 'info/img/portrait.jpg' %}" alt="Riza Baltazar" class="bio-image">
+    <div class="bio">
+      <h3 class="text-secondary">BIO</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sit amet dui tempus, consectetur neque sit amet, fringilla urna. Cras eget rutrum enim, eu varius turpis. Fusce eget sollicitudin augue.</p>
+    </div>
+
+    <div class="job job-1">
+      <h3>TekSavvy</h3>
+      <h6>Junior Software Developer</h6>
+      <p>Suspendisse congue tincidunt posuere. Nullam sed purus sed risus efficitur cursus. Aliquam vitae metus in ex sollicitudin luctus ullamcorper vitae urna. In rhoncus et sem sit amet maximus.</p>
+    </div>
+
+    <div class="job job-2">
+      <h3>Titus</h3>
+      <h6>Junior Web Developer</h6>
+      <p>Etiam eu mi eget eros lacinia dignissim. Sed luctus, justo nec efficitur bibendum, metus quam sagittis lorem, tristique suscipit enim augue in massa. Vestibulum dictum risus et risus vestibulum dapibus.</p>
+    </div>
+
+    <div class="job job-3">
+      <h3>CRA</h3>
+      <h6>IT Service Desk</h6>
+      <p>Mauris turpis ligula, scelerisque finibus laoreet vel, congue et tortor. Phasellus malesuada, erat sit amet ornare aliquam, est lacus sodales nulla, ullamcorper pharetra purus nisl non nunc.</p>
+    </div>
+  </div>
 </main>
+
+<footer id="main-footer">Copyright &copy; 2019</footer>
 {% endblock %}

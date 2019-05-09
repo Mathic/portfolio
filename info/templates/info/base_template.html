@@ -10,9 +10,9 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
-    <title>Riza Baltazar</title>
+    <title>{% block title %}{% endblock %}</title>
   </head>
-  <body id="bg-img">
+  <body id="{% if nbar == 'home' %}bg-img{% endif %}">
     <!-- <div class="overlay"></div> -->
     <header>
       <div class="menu-btn">
@@ -26,16 +26,16 @@
           <div class="portrait"></div>
         </div>
         <ul class="menu-nav">
-          <li class="nav-item">
+          <li class="nav-item {% if nbar == 'home' %}active{% endif %}">
             <a href="{% url 'index' %}" class="nav-link">Home</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item {% if nbar == 'about' %}active{% endif %}">
             <a href="{% url 'about' %}" class="nav-link">About</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item {% if nbar == 'projects' %}active{% endif %}">
             <a href="{% url 'projects' %}" class="nav-link">Projects</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item {% if nbar == 'contact' %}active{% endif %}">
             <a href="{% url 'contact' %}" class="nav-link">Contact</a>
           </li>
         </ul>
