@@ -2,5 +2,32 @@
 {% load static %}
 
 {% block content %}
-  <h1>Test</h1>
+<main id="home">
+  <h1 class="lg-heading">Riza
+    <span class="text-secondary">Baltazar</span>
+  </h1>
+  <h2 class="sm-heading">Full Stack Software Developer</h2>
+  <div class="icons">
+    <a href="#!">
+      <i class="fab fa-instagram fa-2x"></i>
+    </a>
+    <a href="#!">
+      <i class="fab fa-facebook fa-2x"></i>
+    </a>
+    <a href="#!">
+      <i class="fab fa-linkedin fa-2x"></i>
+    </a>
+    <a href="#!">
+      <i class="fab fa-github fa-2x"></i>
+    </a>
+  </div>
+</main>
+
+<script type="text/javascript" src="{% static 'info/js/index.js' %}"></script>
+
+<!-- <div class="not-hero flex-center bg-info">
+  <div class="not-hero-message">
+    <h1 class="hero-title">Some text</h1>
+  </div>
+</div> -->
 {% endblock %}
