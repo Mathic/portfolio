@@ -30,7 +30,10 @@ DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
-    'info.apps.InfoConfig',
+    'rest_framework',
+    'plotly',
+    'info',
+    'calorie',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

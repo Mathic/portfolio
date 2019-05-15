@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="{% static 'calorie/css/calorie.min.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    <header>
+      <h1>Health Journal</h1>
+      <div class="menu-btn">
+        <div class="btn-line"></div>
+        <div class="btn-line"></div>
+        <div class="btn-line"></div>
+      </div>
+      <div class="menu">
+        <div class="menu-branding">
+          <div class="portrait"></div>
+        </div>
+        <ul class="menu-nav">
+          <li class="nav-item {% if nbar == 'home' %}active{% endif %}">
+            <a href="{% url 'index' %}" class="nav-link">Dashboard</a>
+          </li>
+          <li class="nav-item {% if nbar == 'calories' %}active{% endif %}">
+            <a href="{% url 'calories' %}" class="nav-link">Calories</a>
+          </li>
+          <li class="nav-item {% if nbar == 'sleep' %}active{% endif %}">
+            <a href="{% url 'sleep' %}" class="nav-link">Sleep</a>
+          </li>
+          <li class="nav-item {% if nbar == 'mood' %}active{% endif %}">
+            <a href="{% url 'mood' %}" class="nav-link">Mood</a>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <div class="wrapper">
+      <div class="sidebar">
+        <div class="sidebar-branding">
+          <div class="sidebar-portrait"></div>
+        </div>
+        <ul class="sidebar-nav">
+          <li class="sidebar-nav-item {% if nbar == 'home' %}active{% endif %}">
+            <a href="{% url 'index' %}" class="sidebar-nav-link">Dashboard</a>
+          </li>
+          <li class="sidebar-nav-item {% if nbar == 'calories' %}active{% endif %}">
+            <a href="{% url 'calories' %}" class="sidebar-nav-link">Calories</a>
+          </li>
+          <li class="sidebar-nav-item {% if nbar == 'sleep' %}active{% endif %}">
+            <a href="{% url 'sleep' %}" class="sidebar-nav-link">Sleep</a>
+          </li>
+          <li class="sidebar-nav-item {% if nbar == 'mood' %}active{% endif %}">
+            <a href="{% url 'mood' %}" class="sidebar-nav-link">Mood</a>
+          </li>
+        </ul>
+      </div>
+    {% block content %}{% endblock %}
+    </div>
+    <script src="{% static 'calorie/js/main.js' %}"></script>
+  </body>
+</html>

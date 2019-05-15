@@ -1,0 +1,27 @@
+{% extends "calorie/base_template.html" %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<main id="dashboard">
+  <div class="dashboard-stats">
+    <div class="cards stats stats-1">
+      <h3>BMR</h3>
+      <p>1486</p>
+    </div>
+    <div class="cards stats stats-2">
+      <h3>Average Weekly Deficit</h3>
+      <p>1157.91</p>
+    </div>
+    <div class="cards stats stats-3">
+      <h3>Average Daily Deficit</h3>
+      <p>165.42</p>
+    </div>
+    <div class="cards stats stats-4">
+      <h3>Total Deficit</h3>
+      <p>1157.91</p>
+    </div>
+  </div>
+</main>
+{% endblock %}

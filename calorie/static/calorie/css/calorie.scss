@@ -1,0 +1,142 @@
+@import 'config';
+@import 'menu';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  // @include background;
+  background: $primary-color;
+  color: set-text-color($primary-color);
+  height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.5;
+}
+
+header {
+  background: white;
+  position: fixed;
+  padding: 0 2rem;
+  z-index: 2;
+  width: 100%;
+  height: 4.5rem;
+  line-height: 2rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.wrapper {
+  display: flex;
+  padding-top: 4.5rem;
+}
+
+.sidebar {
+  background: $secondary-color;
+  position: fixed;
+  width: 250px;
+
+  &-branding, &-nav {
+    display: flex;
+    flex-flow: column wrap;
+    float: left;
+    height: 100vh;
+  }
+
+  &-nav {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    list-style: none;
+    @include easeOut;
+  }
+
+  &-nav-item {
+    &.active > a {
+      color: #fff;
+    }
+  }
+
+  &-nav-link {
+    display: inline-block;
+    position: relative;
+    padding: 1rem 2rem;
+    font-weight: 400;
+    color: rgba(lighten($secondary-color, 40), 0.9);
+    text-decoration: none;
+    @include easeOut;
+
+    &:hover {
+      color: #fff;
+      @include easeOut;
+    }
+  }
+}
+
+main {
+  padding: 2rem;
+  height: 100%;
+  margin-left: 250px;
+}
+
+// Dashboard css
+.dashboard-stats {
+  display: grid;
+  grid-gap: 30px;
+  grid-template-areas:
+  'stats1 stats2 stats3 stats4';
+  grid-template-columns: repeat(4, 1fr);
+
+  .stats-1 {
+    grid-area: stats1;
+  }
+
+  .stats-2 {
+    grid-area: stats2;
+  }
+
+  .stats-3 {
+    grid-area: stats3;
+  }
+
+  .stats-4 {
+    grid-area: stats4;
+  }
+
+  .stats {
+    min-height: 8.7rem;
+    padding: 0.5rem;
+    border-radius: .625rem;
+    text-align: center;
+  }
+}
+
+.cards {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  background: lighten(#fff, 7);
+  color: set-text-color(#fff);
+}
+
+// Button Styles
+.btn {
+  display: block;
+  padding: 0.5rem 1rem;
+  border: 0;
+  margin-bottom: 0.3rem;
+  &:hover {
+    background: $primary-color;
+    color: set-text-color($primary-color);
+  }
+}
+
+.btn-dark {
+  @extend .btn;
+  background: darken($primary-color, 50);
+  color: #fff;
+}
+
+.btn-light {
+  @extend .btn;
+  background: lighten($primary-color, 50);
+  color: #333;
+}
