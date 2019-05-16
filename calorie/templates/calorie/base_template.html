@@ -6,34 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="{% static 'calorie/css/calorie.min.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
     <header>
-      <h1>Health Journal</h1>
+      <h1>Health <span class="text-highlight">Journal</span></h1>
       <div class="menu-btn">
         <div class="btn-line"></div>
         <div class="btn-line"></div>
         <div class="btn-line"></div>
-      </div>
-      <div class="menu">
-        <div class="menu-branding">
-          <div class="portrait"></div>
-        </div>
-        <ul class="menu-nav">
-          <li class="nav-item {% if nbar == 'home' %}active{% endif %}">
-            <a href="{% url 'index' %}" class="nav-link">Dashboard</a>
-          </li>
-          <li class="nav-item {% if nbar == 'calories' %}active{% endif %}">
-            <a href="{% url 'calories' %}" class="nav-link">Calories</a>
-          </li>
-          <li class="nav-item {% if nbar == 'sleep' %}active{% endif %}">
-            <a href="{% url 'sleep' %}" class="nav-link">Sleep</a>
-          </li>
-          <li class="nav-item {% if nbar == 'mood' %}active{% endif %}">
-            <a href="{% url 'mood' %}" class="nav-link">Mood</a>
-          </li>
-        </ul>
       </div>
     </header>
 
@@ -44,16 +26,24 @@
         </div>
         <ul class="sidebar-nav">
           <li class="sidebar-nav-item {% if nbar == 'home' %}active{% endif %}">
-            <a href="{% url 'index' %}" class="sidebar-nav-link">Dashboard</a>
+            <a href="{% url 'index' %}" class="sidebar-nav-link">
+              <i class="fas fa-home"></i><span class="sidebar-text">Dashboard</span>
+            </a>
           </li>
           <li class="sidebar-nav-item {% if nbar == 'calories' %}active{% endif %}">
-            <a href="{% url 'calories' %}" class="sidebar-nav-link">Calories</a>
+            <a href="{% url 'calories' %}" class="sidebar-nav-link">
+              <i class="fas fa-burn"></i><span class="sidebar-text">Calories</span>
+            </a>
           </li>
           <li class="sidebar-nav-item {% if nbar == 'sleep' %}active{% endif %}">
-            <a href="{% url 'sleep' %}" class="sidebar-nav-link">Sleep</a>
+            <a href="{% url 'sleep' %}" class="sidebar-nav-link">
+              <i class="fas fa-bed"></i><span class="sidebar-text">Sleep</span>
+            </a>
           </li>
           <li class="sidebar-nav-item {% if nbar == 'mood' %}active{% endif %}">
-            <a href="{% url 'mood' %}" class="sidebar-nav-link">Mood</a>
+            <a href="{% url 'mood' %}" class="sidebar-nav-link">
+              <i class="far fa-smile"></i><span class="sidebar-text">Mood</span>
+            </a>
           </li>
         </ul>
       </div>

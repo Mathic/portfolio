@@ -1,6 +1,7 @@
 // Variables and mixins
-$primary-color: #f5f5fa;
-$secondary-color: #333;// #eece1a;
+$primary-color: #F4F4F4;
+$secondary-color: #494949;// #eece1a;
+$highlight-color: #2589BD;
 $show-home-image: true;
 // $home-image: url(../img/notebook.jpg);
 $background-opacity: 0.9;
@@ -15,5 +16,30 @@ $background-opacity: 0.9;
     @return #000;
   } @else {
     @return #fff;
+  }
+}
+
+// Media query mixins
+@mixin mediaSm {
+  @media screen and (max-width: 500px) {
+    @content;
+  }
+}
+
+@mixin mediaMd {
+  @media screen and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin mediaLg {
+  @media screen and (min-width: 769px) and (max-width: 1170px) {
+    @content;
+  }
+}
+
+@mixin mediaXl {
+  @media screen and (min-width: 1171px) {
+    @content;
   }
 }

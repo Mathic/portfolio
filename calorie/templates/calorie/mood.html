@@ -4,7 +4,26 @@
 {% block title %}Mood{% endblock %}
 
 {% block content %}
-<main id="Mood">
-  Mood
+<main id="calories">
+  <h2>Mood</h2>
+
+  <div class="cards calorie-entry">
+    <h3>New Mood Entry</h3>
+    <form class="" action="index.html" method="post">
+      <label for="entry_date">Date:</label>
+      <input type="text" name="entry_date" placeholder="0" value="{{ entry_date }}">
+      
+      <label for="entry_time">Time:</label>
+      <input type="text" name="entry_time" placeholder="0" value="{{ entry_time }}">
+
+      <label for="entry_mood">Mood:</label>
+      <input type="text" name="entry_mood" placeholder="0" value="{{ entry_mood }}">
+      <br>
+      <button type="button" name="button" class="btn-light">Save</button>
+    </form>
+    <div class="row">
+
+    </div>
+  </div>
 </main>
 {% endblock %}

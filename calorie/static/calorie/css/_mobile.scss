@@ -1,0 +1,107 @@
+@import 'config';
+
+// Widescreen
+@include mediaXl {
+
+}
+
+// Desktops & Laptops
+@include mediaLg {
+  .dashboard-stats {
+    grid-template-areas:
+    'stats1 stats2'
+    'stats3 stats4';
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  main {
+    margin-left: 200px;
+    @include easeOut;
+  }
+
+  .sidebar {
+    visibility: visible;
+    transform: translate3d(0, 0, 0);
+    @include easeOut;
+
+    &-text {
+      visibility: visible;
+      transform: translate3d(0, 0, 0);
+      @include easeOut;
+    }
+  }
+}
+
+// Tablets & Small Laptops
+@include mediaMd {
+  .dashboard-stats {
+    grid-template-areas:
+    'stats1'
+    'stats2'
+    'stats3'
+    'stats4';
+    grid-template-columns: 1fr;
+  }
+
+  main {
+    margin-left: 85px;
+    @include easeOut;
+  }
+
+  .sidebar {
+    width: 85px;
+    visibility: show;
+    transform: translate3d(0, 0, 0);
+    @include easeOut;
+
+    &-nav-item {
+      padding: 0 1rem;
+    }
+
+    &-text {
+      visibility: hidden;
+      transform: translate3d(-85px, 0, 0);
+      @include easeOut;
+    }
+  }
+}
+
+// Smartphones
+@include mediaSm {
+  .dashboard-stats {
+    grid-template-areas:
+    'stats1'
+    'stats2'
+    'stats3'
+    'stats4'
+    'stats5';
+    grid-template-columns: 1fr;
+  }
+
+  main {
+    margin-left: 0;
+    @include easeOut;
+  }
+
+  .sidebar {
+    visibility: hidden;
+    width: 200px;
+    transform: translate3d(-100%, 0, 0);
+    @include easeOut;
+
+    &-nav-item {
+      padding: 0 1rem;
+    }
+
+    &-text {
+      visibility: hidden;
+      transform: translate3d(0, 0, 0);
+      @include easeOut;
+    }
+  }
+
+  .menu-btn {
+    visibility: visible;
+    @include easeOut;
+  }
+}

@@ -2,6 +2,7 @@ from django.db import models
 
 from django.utils import timezone
 
+import datetime
 import plotly.plotly as py
 import plotly.graph_objs as go
 
@@ -18,6 +19,7 @@ class Setup(models.Model):
         return self.first_name + " " + self.last_name
 
 class Entry(models.Model):
+    date_for = models.DateField(default=datetime.date.today)
     date_created = models.DateTimeField(default=timezone.now)
     date_modified = models.DateTimeField(auto_now=True)
     setup = models.ForeignKey(Setup, on_delete=models.CASCADE)
@@ -29,10 +31,9 @@ class Calorie(models.Model):
     entry = models.ForeignKey(Entry, on_delete=models.CASCADE)
 
 class Sleep(models.Model):
-    time_awake = models.TimeField(blank=True)
-    time_slept = models.TimeField(blank=True)
+    time_awake = models.DateTimeField(blank=True)
+    time_slept = models.DateTimeField(blank=True)
     sleep_duration = models.DurationField()
-    entry = models.ForeignKey(Entry, on_delete=models.CASCADE)
 
 class Exercise(models.Model):
     exercise_duration = models.DurationField()

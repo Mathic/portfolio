@@ -4,7 +4,28 @@
 {% block title %}Calories{% endblock %}
 
 {% block content %}
-<main id="Calories">
-  Calories
+<main id="calories">
+  <h2>Calories</h2>
+
+  <div class="cards calorie-entry">
+    <h3>New Calorie Entry</h3>
+    <form class="" action="index.html" method="post">
+      <label for="entry_date">Date:</label>
+      <input type="text" name="entry_date" placeholder="0" value="{{ entry_date }}">
+
+      <label for="entry_weight">Weight:</label>
+      <input type="text" name="entry_weight" placeholder="0" value="{{ entry_weight }}">
+
+      <label for="entry_calories">Calories:</label>
+      <input type="text" name="entry_calories" placeholder="0" value="{{ entry_calories }}">
+
+      <a href="#"><i class="add-exercise-button fas fa-plus-circle"></i></a><label for="add_exercise">Add Exercise</label>
+      <br><br>
+      <button type="button" name="button" class="btn-light">Save</button>
+    </form>
+    <div class="row">
+
+    </div>
+  </div>
 </main>
 {% endblock %}
