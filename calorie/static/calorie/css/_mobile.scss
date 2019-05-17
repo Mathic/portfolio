@@ -23,6 +23,7 @@
 
     &-personal {
       grid-area: personal;
+      min-width: inherit;
     }
 
     &-general {
@@ -72,8 +73,28 @@
     'goals';
     grid-template-columns: 1fr;
 
+    &-profile {
+      display: block;
+      grid-gap: 30px;
+      grid-template-areas:
+      'top'
+      'bottom';
+      grid-template-columns: 1fr;
+
+      .portrait-center {
+        grid-area: top;
+      }
+
+      .settings-form {
+        grid-area: form;
+        border-left: none;
+        border-top: lighten($secondary-color, 45) 1px solid;
+      }
+    }
+
     &-personal {
       grid-area: personal;
+      min-width: inherit;
     }
 
     &-general {
@@ -122,6 +143,48 @@
     'stats4'
     'stats5';
     grid-template-columns: 1fr;
+  }
+
+  .settings {
+    display: grid;
+    grid-gap: 30px;
+    grid-template-areas:
+    'personal'
+    'general'
+    'goals';
+    grid-template-columns: 1fr;
+
+    &-profile {
+      display: block;
+      grid-gap: 30px;
+      grid-template-areas:
+      'top'
+      'bottom';
+      grid-template-columns: 1fr;
+
+      .portrait-center {
+        grid-area: top;
+      }
+
+      .settings-form {
+        grid-area: form;
+        border-left: none;
+        border-top: lighten($secondary-color, 45) 1px solid;
+      }
+    }
+
+    &-personal {
+      grid-area: personal;
+      min-width: inherit;
+    }
+
+    &-general {
+      grid-area: general;
+    }
+
+    &-goals {
+      grid-area: goals;
+    }
   }
 
   main {
