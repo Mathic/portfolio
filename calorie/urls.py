@@ -7,4 +7,5 @@ urlpatterns = [
     path('calories', views.calories, name='calories'),
     path('sleep', views.sleep, name='sleep'),
     path('mood', views.mood, name='mood'),
+    path('profile', views.profile, name='profile'),
 ]

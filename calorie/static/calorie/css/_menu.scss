@@ -70,23 +70,6 @@
     @include easeOut;
   }
 
-  &-nav-item {
-    
-    &.active {
-      background: rgba(darken($secondary-color, 5), 1);
-      border-left: $highlight-color 5px solid;
-
-      a {
-        color: #fff;
-        margin-left: -5px;
-      }
-
-      i {
-        color: $highlight-color;
-      }
-    }
-  }
-
   &-nav-link {
     display: inline-block;
     position: relative;
@@ -95,10 +78,21 @@
     color: lighten($secondary-color, 35);
     text-decoration: none;
     width: 100%;
-    @include easeOut;
+
+    &.active {
+      background: rgba(darken($secondary-color, 5), 1);
+      border-left: $highlight-color 5px solid;
+      color: #fff;
+
+      i {
+        color: $highlight-color;
+        margin-left: -5px;
+      }
+    }
 
     &:hover {
       background: darken($secondary-color, 5);
+      color: #fff;
     }
   }
 
@@ -108,11 +102,6 @@
     &.show {
       visibility: visible;
       transform: translate3d(0, 0, 0);
-    }
-
-    &:hover {
-      color: #fff;
-      @include easeOut;
     }
   }
 }

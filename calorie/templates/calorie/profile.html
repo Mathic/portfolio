@@ -1,0 +1,101 @@
+{% extends "calorie/base_template.html" %}
+{% load static %}
+
+{% block title %}Sleep{% endblock %}
+
+{% block content %}
+<main id="settings">
+  <h2>Profile</h2>
+    <div class="settings">
+    <div class="cards settings-personal">
+      <!-- <h3>{{ first_name_input }} {{ last_name_input }}</h3> -->
+      <h3>Riza Baltazar</h3>
+      <hr>
+      <div class="settings-profile">
+        <div class="portrait">
+          <div class="portrait-center">
+            <img src="{% static 'calorie/img/profile.jpg' %}" alt="Riza Baltazar" class="portrait-image">
+            <button type="button" name="button" class="btn-light portrait-button">Edit image</button>
+          </div>
+
+          <h4>Description</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In iaculis tempor urna vitae auctor. Phasellus commodo, purus sed accumsan mattis, lectus orci bibendum magna, non feugiat metus nunc non ex. Ut vel lorem a nisl finibus ultrices. Etiam ornare, ipsum quis lacinia dignissim, orci velit sodales quam, eu lobortis ligula eros eu dui. Morbi nibh odio, placerat vel euismod et, imperdiet vel risus. In eget risus a felis congue consequat. Nullam eleifend eget elit non bibendum.</p>
+        </div>
+
+        <form class="settings-form" action="settings.html" method="post">
+          <label for="first_name_input">First Name:</label>
+          <input type="text" name="first_name_input" placeholder="First name" value="{{ first_name_input }}">
+
+          <label for="last_name_input">Last name:</label>
+          <input type="text" name="last_name_input" placeholder="Last name" value="{{ last_name_input }}">
+
+          <label for="age_input">Age:</label>
+          <input type="number" name="age_input" placeholder="Age" value="{{ age_input }}">
+
+          <label for="height_input">Height:</label>
+          <input type="number" name="height_input" placeholder="Height" value="{{ height_input }}">
+
+          <label for="weight_input">Weight:</label>
+          <input type="number" name="weight_input" placeholder="Weight" value="{{ weight_input }}">
+
+          <label for="gender_input">Gender:</label>
+          <!-- <input type="text" name="gender_input" placeholder="Gender" value="{{ gender_input }}"> -->
+          <label class="gender_input">
+            <input type="radio" name="gender_input">
+            Male
+          </label>
+          <label class="gender_input">
+            <input type="radio" name="gender_input" checked>
+            Female
+          </label>
+
+          <br><br>
+          <button type="button" name="button" class="btn-light">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="cards settings-general">
+      <h3>Metrics</h3>
+      <hr>
+      <form class="form-metrics" action="settings.html" method="post">
+        <label for="height_input">Height:</label>
+        <label class="height_input">
+          <input type="radio" name="height_input">
+          feet
+        </label>
+        <label class="height_input">
+          <input type="radio" name="height_input" checked>
+          cm
+        </label>
+        <br><br>
+        <label for="weight_input">Weight:</label>
+        <label class="weight_input">
+          <input type="radio" name="weight_input">
+          kg
+        </label>
+        <label class="weight_input">
+          <input type="radio" name="weight_input" checked>
+          lbs
+        </label>
+        <br><br>
+        <label for="distance_input">Distance:</label>
+        <label class="distance_input">
+          <input type="radio" name="distance_input">
+          miles
+        </label>
+        <label class="distance_input">
+          <input type="radio" name="distance_input" checked>
+          km
+        </label>
+        <br><br>
+      </form>
+    </div>
+
+    <div class="cards settings-goals">
+      <h3>Goals</h3>
+      <hr>
+    </div>
+  </div>
+</main>
+{% endblock %}

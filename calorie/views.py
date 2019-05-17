@@ -15,3 +15,6 @@ def sleep(request):
 
 def mood(request):
     return render(request, 'calorie/mood.html', {'nbar': 'mood'})
+
+def profile(request):
+    return render(request, 'calorie/profile.html', {'nbar': 'profile'})

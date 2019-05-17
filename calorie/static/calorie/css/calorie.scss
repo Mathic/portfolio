@@ -1,5 +1,6 @@
 @import 'config';
 @import 'menu';
+@import 'profile';
 
 * {
   box-sizing: border-box;
@@ -24,6 +25,20 @@ header {
   height: 4.5rem;
   line-height: 2rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.header-branding {
+  display: inline-block;
+
+  a {
+    white-space: nowrap;
+    text-decoration: none;
+    color: $secondary-color;
+
+    &:hover {
+      color: darken($secondary-color, 20);
+    }
+  }
 }
 
 .text-highlight {
@@ -121,6 +136,7 @@ main {
   margin-right: 5px;
 }
 
+// Form styles
 [type='color'],
 [type='date'],
 [type='datetime'],

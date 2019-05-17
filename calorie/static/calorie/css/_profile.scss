@@ -1,0 +1,55 @@
+main#settings {
+  width: -webkit-fill-available;
+}
+
+.settings {
+  display: flex;
+
+  &-personal, &-general, &-goals {
+    margin-left: 1rem;
+  }
+
+  &-personal {
+    min-width: 590px;
+  }
+
+  &-general {
+    min-width: 250px;
+  }
+
+  &-goals {
+    width: -webkit-fill-available;
+  }
+
+  &-profile {
+    display: flex;
+  }
+
+  &-form {
+    padding: 1rem;
+    border-left: lighten($secondary-color, 45) 1px solid;
+    border-spacing: 1rem;
+  }
+
+  .portrait {
+    margin: 0 2rem;
+    max-width: 300px;
+
+    &-center, &-button, &-image {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    &-image {
+      display: block;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: $secondary-color 3px solid;
+    }
+
+    &-button {
+      margin-top: 10px;
+    }
+  }
+}

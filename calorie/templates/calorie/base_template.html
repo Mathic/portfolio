@@ -11,7 +11,9 @@
   </head>
   <body>
     <header>
-      <h1>Health <span class="text-highlight">Journal</span></h1>
+      <div class="header-branding">
+        <a href="{% url 'index' %}"><h1>Health <span class="text-highlight">Journal</span></h1></a>
+      </div>
       <div class="menu-btn">
         <div class="btn-line"></div>
         <div class="btn-line"></div>
@@ -25,24 +27,29 @@
           <div class="sidebar-portrait"></div>
         </div>
         <ul class="sidebar-nav">
-          <li class="sidebar-nav-item {% if nbar == 'home' %}active{% endif %}">
-            <a href="{% url 'index' %}" class="sidebar-nav-link">
+          <li class="sidebar-nav-item">
+            <a href="{% url 'index' %}" class="sidebar-nav-link {% if nbar == 'home' %}active{% endif %}">
               <i class="fas fa-home"></i><span class="sidebar-text">Dashboard</span>
             </a>
           </li>
-          <li class="sidebar-nav-item {% if nbar == 'calories' %}active{% endif %}">
-            <a href="{% url 'calories' %}" class="sidebar-nav-link">
+          <li class="sidebar-nav-item">
+            <a href="{% url 'calories' %}" class="sidebar-nav-link {% if nbar == 'calories' %}active{% endif %}">
               <i class="fas fa-burn"></i><span class="sidebar-text">Calories</span>
             </a>
           </li>
-          <li class="sidebar-nav-item {% if nbar == 'sleep' %}active{% endif %}">
-            <a href="{% url 'sleep' %}" class="sidebar-nav-link">
+          <li class="sidebar-nav-item">
+            <a href="{% url 'sleep' %}" class="sidebar-nav-link {% if nbar == 'sleep' %}active{% endif %}">
               <i class="fas fa-bed"></i><span class="sidebar-text">Sleep</span>
             </a>
           </li>
-          <li class="sidebar-nav-item {% if nbar == 'mood' %}active{% endif %}">
-            <a href="{% url 'mood' %}" class="sidebar-nav-link">
+          <li class="sidebar-nav-item">
+            <a href="{% url 'mood' %}" class="sidebar-nav-link {% if nbar == 'mood' %}active{% endif %}">
               <i class="far fa-smile"></i><span class="sidebar-text">Mood</span>
+            </a>
+          </li>
+          <li class="sidebar-nav-item">
+            <a href="{% url 'profile' %}" class="sidebar-nav-link {% if nbar == 'profile' %}active{% endif %}">
+              <i class="fas fa-user-circle"></i><span class="sidebar-text">Profile</span>
             </a>
           </li>
         </ul>
