@@ -1,0 +1,22 @@
+{% extends "calorie/base_template.html" %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<main id="login">
+    {% if registered %}
+      <h1>Thank you for registering!</h1>
+    {% else %}
+    <h1>Register</h1>
+    <div class="cards">
+      <form enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        <input class="btn-light" type="submit" name="" value="Register">
+      </form>
+    </div>
+    {% endif %}
+</main>
+{% endblock %}

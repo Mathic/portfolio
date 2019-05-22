@@ -14,6 +14,15 @@
       <div class="header-branding">
         <a href="{% url 'index' %}"><h1>Health <span class="text-highlight">Journal</span></h1></a>
       </div>
+      <div align="right" class="authentication">
+      {# Some logic on what to display for last item#}
+      {% if user.is_authenticated %}
+        Hello, {{ request.user.username }}! <a href="{% url 'logout' %}">Logout</a>
+      {% else %}
+        <a href="{% url 'register' %}">Sign up</a>
+        <a href="{% url 'user_login' %}">Login</a>
+      {% endif %}
+      </div>
       <div class="menu-btn">
         <div class="btn-line"></div>
         <div class="btn-line"></div>

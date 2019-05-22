@@ -41,6 +41,28 @@ header {
   }
 }
 
+.authentication {
+  display: inline-block;
+  float:right;
+  padding: 1em;
+
+  a {
+    border: 0;
+    margin: 0.3rem 0;
+    border-radius: 0.25rem;
+    white-space: nowrap;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background: $highlight-color;
+    color: #fff;
+
+    &:hover {
+      cursor: pointer;
+      background: darken($secondary-color, 20);
+    }
+  }
+}
+
 .text-highlight {
   color: $highlight-color;
 }
@@ -108,7 +130,7 @@ main {
   padding: 0.5rem 1rem;
   border: 0;
   margin: 0.3rem 0;
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
   cursor: pointer;
 }
 
