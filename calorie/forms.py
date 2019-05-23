@@ -17,7 +17,7 @@ class UserForm(forms.ModelForm):
 class UserProfileInfoForm(forms.ModelForm):
      class Meta():
          model = UserProfileInfo
-         fields = ('portfolio_site','profile_pic')
+         fields = ('portfolio_site',)
 
 class SetupForm(forms.Form):
     first_name = forms.CharField(max_length=100)
