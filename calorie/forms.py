@@ -54,5 +54,8 @@ class MoodForm(forms.ModelForm):
 
         widgets = {
             'mood_rating': forms.RadioSelect(attrs={
-                'class': 'radio-choices'}, choices=MOOD_RATING)
+                'class': 'radio-choices'}, choices=MOOD_RATING),
+            'mood_notes': forms.Textarea(attrs={'rows':12,
+                                            'cols':30,
+                                            'style':'resize:none;'})
         }
