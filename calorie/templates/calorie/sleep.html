@@ -9,19 +9,17 @@
 
   <div class="cards sleep-entry">
     <h3>New Sleep Entry</h3>
+    <label for="datepicker">Date: </label>
+    <input id="datepicker" class="datepicker" value="{{ today }}">
     <form class="" action="index.html" method="post">
-      <label for="entry_sleep">Sleep time:</label>
-      <input type="text" name="entry_sleep" placeholder="0" value="{{ entry_sleep }}">
-
-      <label for="entry_wake">Wake up time:</label>
-      <input type="text" name="entry_wake" placeholder="0" value="{{ entry_wake }}">
-
-      <br>
-      <button type="button" name="button" class="btn-light">Save</button>
+      {% csrf_token %}
+      {{ sleep_form.as_p }}
+      <input class="btn-light" type="submit" name="" value="Save">
     </form>
     <div class="row">
 
     </div>
   </div>
 </main>
+<script src="{% static 'calorie/js/calories.js' %}"></script>
 {% endblock %}

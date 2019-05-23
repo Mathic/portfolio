@@ -6,12 +6,6 @@ import datetime
 import plotly.plotly as py
 import plotly.graph_objs as go
 
-GENDER_CHOICES = [
-    ('M', 'Male'),
-    ('F', 'Female'),
-]
-
-# Create your models here.
 class UserProfileInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     portfolio_site = models.URLField(blank=True)
@@ -25,7 +19,7 @@ class Setup(models.Model):
     last_name = models.CharField(max_length=100)
     height = models.DecimalField(max_digits=6, decimal_places=3, default=0)
     age = models.DecimalField(max_digits=3, decimal_places=0, default=0)
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    gender = models.CharField(max_length=1)
     weight = models.DecimalField(max_digits=6, decimal_places=3, default=0)
     user = models.ForeignKey(UserProfileInfo, on_delete=models.CASCADE)
 
@@ -51,8 +45,15 @@ class Sleep(models.Model):
     time_awake = models.DateTimeField(blank=True)
     time_slept = models.DateTimeField(blank=True)
     sleep_duration = models.DurationField()
+    user = models.ForeignKey(UserProfileInfo, on_delete=models.CASCADE)
 
 class Exercise(models.Model):
     exercise_duration = models.DurationField()
     heart_rate = models.IntegerField(default=0)
+    entry = models.ForeignKey(Entry, on_delete=models.CASCADE)
+
+class Mood(models.Model):
+    mood_rating = models.IntegerField(default=0)
+    mood_time = models.TimeField()
+    mood_notes = models.CharField(max_length=300)
     entry = models.ForeignKey(Entry, on_delete=models.CASCADE)

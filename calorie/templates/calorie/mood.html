@@ -9,21 +9,17 @@
 
   <div class="cards mood-entry">
     <h3>New Mood Entry</h3>
-    <form class="" action="index.html" method="post">
-      <label for="entry_date">Date:</label>
-      <input type="text" name="entry_date" placeholder="0" value="{{ entry_date }}">
-
-      <label for="entry_time">Time:</label>
-      <input type="text" name="entry_time" placeholder="0" value="{{ entry_time }}">
-
-      <label for="entry_mood">Mood:</label>
-      <input type="text" name="entry_mood" placeholder="0" value="{{ entry_mood }}">
-      <br>
-      <button type="button" name="button" class="btn-light">Save</button>
+    <label for="datepicker">Date: </label>
+    <input id="datepicker" class="datepicker" value="{{ today }}">
+    <form class="" action="{% url 'mood' %}" method="post">
+      {% csrf_token %}
+      {{ mood_form.as_p }}
+      <input class="btn-light" type="submit" name="" value="Save">
     </form>
     <div class="row">
 
     </div>
   </div>
 </main>
+<script src="{% static 'calorie/js/calories.js' %}"></script>
 {% endblock %}

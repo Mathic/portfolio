@@ -1,11 +1,19 @@
 # dappx/forms.py
 from django import forms
-from calorie.models import Calorie, Setup, UserProfileInfo
+from calorie.models import Calorie, Mood, Setup, Sleep, UserProfileInfo
 from django.contrib.auth.models import User
 
 GENDER_CHOICES = [
     ('M', 'Male'),
     ('F', 'Female'),
+]
+
+MOOD_RATING = [
+    ('1', 1),
+    ('2', 2),
+    ('3', 3),
+    ('4', 4),
+    ('5', 5),
 ]
 
 class UserForm(forms.ModelForm):
@@ -19,25 +27,32 @@ class UserProfileInfoForm(forms.ModelForm):
          model = UserProfileInfo
          fields = ('portfolio_site',)
 
-class SetupForm(forms.Form):
-    first_name = forms.CharField(max_length=100)
-    last_name = forms.CharField(max_length=100)
-    height = forms.DecimalField(max_digits=6, decimal_places=3)
-    age = forms.DecimalField(max_digits=3, decimal_places=0)
-    gender = forms.CharField(widget=forms.RadioSelect(attrs={'class': 'gender-choice'}, choices=GENDER_CHOICES))
-    weight = forms.DecimalField(max_digits=6, decimal_places=3)
-
 class SetupForm(forms.ModelForm):
     class Meta():
         model = Setup
         fields = ('first_name', 'last_name', 'height', 'age', 'gender', 'weight')
 
-class CalorieForm(forms.Form):
-    entry_weight = forms.DecimalField(max_digits=6, decimal_places=3)
-    calories_in = forms.DecimalField(max_digits=6, decimal_places=2)
-    calories_out = forms.DecimalField(max_digits=6, decimal_places=2)
+        widgets = {
+            'gender': forms.RadioSelect(attrs={
+                'class': 'radio-choices'}, choices=GENDER_CHOICES)
+        }
 
 class CalorieForm(forms.ModelForm):
     class Meta():
         model = Calorie
         fields = ('entry_weight', 'calories_in', 'calories_out')
+
+class SleepForm(forms.ModelForm):
+    class Meta():
+        model = Sleep
+        fields = ('time_slept', 'time_awake')
+
+class MoodForm(forms.ModelForm):
+    class Meta():
+        model = Mood
+        fields = ('mood_rating', 'mood_time', 'mood_notes')
+
+        widgets = {
+            'mood_rating': forms.RadioSelect(attrs={
+                'class': 'radio-choices'}, choices=MOOD_RATING)
+        }

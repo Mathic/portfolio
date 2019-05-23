@@ -173,6 +173,7 @@ main {
 [type='url'],
 [type='week'],
 [type='time'],
+.datepicker,
 select,
 textarea {
   display: block;
@@ -191,6 +192,14 @@ label {
   font-weight: 600;
   font-size: 0.9rem;
   margin: 0.5rem 0;
+}
+
+.radio-choices {
+  padding: 0;
+  li {
+    list-style: none;
+    display: inline-flex;
+  }
 }
 
 @import 'mobile';
