@@ -8,55 +8,34 @@
   <h2>Profile</h2>
     <div class="settings">
     <div class="cards settings-personal">
-      <!-- <h3>{{ first_name_input }} {{ last_name_input }}</h3> -->
-      <h3>Riza Baltazar</h3>
+      {% if setup_exists %}
+      <h3>{{ name }}</h3>
+      {% else %}
+      <h3>{{ request.user.username }}</h3>
+      {% endif %}
       <hr>
       <div class="settings-profile">
         <div class="portrait">
           <div class="portrait-center">
-            <img src="{% static 'calorie/img/profile.jpg' %}" alt="Riza Baltazar" class="portrait-image">
+            <img src="{% static 'calorie/img/profile-placeholder.gif' %}" alt="Riza Baltazar" class="portrait-image">
             <button type="button" name="button" class="btn-light portrait-button">Edit image</button>
           </div>
 
-          <h4>Description</h4>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In iaculis tempor urna vitae auctor. Phasellus commodo, purus sed accumsan mattis, lectus orci bibendum magna, non feugiat metus nunc non ex. Ut vel lorem a nisl finibus ultrices. Etiam ornare, ipsum quis lacinia dignissim, orci velit sodales quam, eu lobortis ligula eros eu dui. Morbi nibh odio, placerat vel euismod et, imperdiet vel risus. In eget risus a felis congue consequat. Nullam eleifend eget elit non bibendum.</p>
+          <h4>About me</h4>
+          <p>No Description.</p>
         </div>
 
-        <form class="settings-form" action="settings.html" method="post">
-          <label for="first_name_input">First Name:</label>
-          <input type="text" name="first_name_input" placeholder="First name" value="{{ first_name_input }}">
-
-          <label for="last_name_input">Last name:</label>
-          <input type="text" name="last_name_input" placeholder="Last name" value="{{ last_name_input }}">
-
-          <label for="age_input">Age:</label>
-          <input type="number" name="age_input" placeholder="Age" value="{{ age_input }}">
-
-          <label for="height_input">Height:</label>
-          <input type="number" name="height_input" placeholder="Height" value="{{ height_input }}">
-
-          <label for="weight_input">Weight:</label>
-          <input type="number" name="weight_input" placeholder="Weight" value="{{ weight_input }}">
-
-          <label for="gender_input">Gender:</label>
-          <!-- <input type="text" name="gender_input" placeholder="Gender" value="{{ gender_input }}"> -->
-          <label class="gender_input">
-            <input type="radio" name="gender_input">
-            Male
-          </label>
-          <label class="gender_input">
-            <input type="radio" name="gender_input" checked>
-            Female
-          </label>
-
-          <br><br>
-          <button type="button" name="button" class="btn-light">Save</button>
+        <form class="settings-form" action="{% url 'profile' %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ setup_form.as_p }}
+          <input class="btn-light" type="submit" name="" value="Save">
         </form>
       </div>
     </div>
 
     <div class="cards settings-general">
       <h3>Metrics</h3>
+      (Under construction)
       <hr>
       <form class="form-metrics" action="settings.html" method="post">
         <label for="height_input">Height:</label>
@@ -94,7 +73,8 @@
 
     <div class="cards settings-goals">
       <h3>Goals</h3>
-      <hr>
+      (Under construction)
+      <hr>      
     </div>
   </div>
 </main>

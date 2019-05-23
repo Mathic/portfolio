@@ -29,11 +29,20 @@ main#settings {
     padding: 1rem;
     border-left: lighten($secondary-color, 45) 1px solid;
     border-spacing: 1rem;
+
+    .gender-choice {
+      padding: 0;
+      li {
+        list-style: none;
+        display: inline-flex;
+      }
+    }
   }
 
   .portrait {
     margin: 0 2rem;
     max-width: 300px;
+    min-width: 250px;
 
     &-center, &-button, &-image {
       margin-left: auto;

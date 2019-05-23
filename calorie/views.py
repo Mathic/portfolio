@@ -1,29 +1,97 @@
-from django.shortcuts import render
-
-from calorie.forms import UserForm, UserProfileInfoForm
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect, HttpResponse
-from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
+from django.utils import timezone
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from calorie.forms import *
+from calorie.models import Calorie, Entry, Setup, UserProfileInfo
+
+import datetime
 
 # Create your views here.
 def index(request):
     return render(request, 'calorie/index.html', {'nbar': 'home'})
 
+@login_required
 def calories(request):
-    return render(request, 'calorie/calories.html', {'nbar': 'calories'})
+    upi = UserProfileInfo.objects.get(user=request.user)
+    today = datetime.datetime.today()
+    entry_exists = Entry.objects.filter(date_for=today).exists()
+    
+    if entry_exists:
+        obj = Calorie.objects.get(entry=Entry.objects.get(date_for=today))
+        print(obj)
 
+    if request.method == 'POST':
+        if entry_exists:
+            calorie_form = CalorieForm(data=request.POST, instance=obj)
+        else:
+            calorie_form = CalorieForm(data=request.POST)
+
+        if calorie_form.is_valid():
+            calorie = calorie_form.save(commit=False)
+            if entry_exists:
+                entry = Entry.objects.get(date_for=today)
+                entry.date_modified = today
+                entry.save()
+            else:
+                entry = Entry(user=upi)
+                entry.save()
+            calorie.entry = entry
+            calorie.save()
+    else:
+        if entry_exists:
+            calorie_form = CalorieForm(instance=obj)
+        else:
+            calorie_form = CalorieForm()
+
+    return render(request, 'calorie/calories.html', {'nbar': 'calories', 'calorie_form': calorie_form})
+
+@login_required
 def sleep(request):
     return render(request, 'calorie/sleep.html', {'nbar': 'sleep'})
 
+@login_required
 def mood(request):
     return render(request, 'calorie/mood.html', {'nbar': 'mood'})
 
+@login_required
 def profile(request):
-    return render(request, 'calorie/profile.html', {'nbar': 'profile'})
+    upi = UserProfileInfo.objects.get(user=request.user)
+    setup_exists = Setup.objects.filter(user=upi).exists()
+    name = ''
+    if setup_exists:
+        obj = Setup.objects.get(user=upi)
+        name = obj.first_name + ' ' + obj.last_name
+
+    if request.method == 'POST':
+        if setup_exists:
+            setup_form = SetupForm(data=request.POST, instance=obj)
+        else:
+            setup_form = SetupForm(data=request.POST)
+
+        if setup_form.is_valid():
+            setup = setup_form.save(commit=False)
+            setup.user = upi
+            setup.save()
+    else:
+        if setup_exists:
+            setup_form = SetupForm(instance=obj)
+        else:
+            setup_form = SetupForm()
+
+    context = {
+        'nbar': 'profile',
+        'setup_form': setup_form,
+        'setup_exists': setup_exists,
+        'name': name,
+    }
+    return render(request, 'calorie/profile.html', context)
 
 @login_required
 def user_logout(request):
