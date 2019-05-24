@@ -9,7 +9,12 @@ urlpatterns = [
     path('mood', views.mood, name='mood'),
     path('profile', views.profile, name='profile'),
 
+    # authentication
     path('register', views.register, name='register'),
     path('user_login', views.user_login, name='user_login'),
     path('logout', views.user_logout, name='logout'),
+
+    # ajax requests
+    path('ajax/load-calorie', views.load_calorie, name='ajax_load_calorie'),
+    path('ajax/load-sleep', views.load_sleep, name='ajax_load_sleep'),
 ]

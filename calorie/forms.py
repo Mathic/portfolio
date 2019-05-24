@@ -1,6 +1,6 @@
 # dappx/forms.py
 from django import forms
-from calorie.models import Calorie, Mood, Setup, Sleep, UserProfileInfo
+from calorie.models import Entry, Calorie, Mood, Setup, Sleep, UserProfileInfo
 from django.contrib.auth.models import User
 
 GENDER_CHOICES = [
@@ -35,6 +35,15 @@ class SetupForm(forms.ModelForm):
         widgets = {
             'gender': forms.RadioSelect(attrs={
                 'class': 'radio-choices'}, choices=GENDER_CHOICES)
+        }
+
+class EntryForm(forms.ModelForm):
+    class Meta():
+        model = Entry
+        fields = ('date_for',)
+
+        widgets = {
+            'date_for': forms.HiddenInput()
         }
 
 class CalorieForm(forms.ModelForm):

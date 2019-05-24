@@ -18,79 +18,6 @@ def index(request):
     return render(request, 'calorie/index.html', {'nbar': 'home'})
 
 @login_required
-def calories(request):
-    upi = UserProfileInfo.objects.get(user=request.user)
-    today = datetime.datetime.today()
-    entry_exists = Entry.objects.filter(date_for=today).exists()
-    obj_exists = False
-
-    if entry_exists:
-        entry = Entry.objects.get(date_for=today)
-        obj_exists = Calorie.objects.filter(entry=entry).exists()
-        if obj_exists:
-            obj = Calorie.objects.get(entry=Entry.objects.get(date_for=today))
-
-    if request.method == 'POST':
-        if obj_exists:
-            calorie_form = CalorieForm(data=request.POST, instance=obj)
-        else:
-            calorie_form = CalorieForm(data=request.POST)
-
-        if calorie_form.is_valid():
-            calorie = calorie_form.save(commit=False)
-            if entry_exists:
-                entry = Entry.objects.get(date_for=today)
-                entry.date_modified = today
-                entry.save()
-            else:
-                entry = Entry(user=upi)
-                entry.save()
-            calorie.entry = entry
-            calorie.save()
-    else:
-        if obj_exists:
-            calorie_form = CalorieForm(instance=obj)
-        else:
-            calorie_form = CalorieForm()
-
-    context = {
-        'nbar': 'calories',
-        'calorie_form': calorie_form,
-        'today': str(datetime.date.today().strftime("%m/%d/%Y")),
-        # 'entry_exists': entry_exists,
-    }
-    return render(request, 'calorie/calories.html', context)
-
-@login_required
-def sleep(request):
-    # upi = UserProfileInfo.objects.get(user=request.user)
-    # sleep_exists = Sleep.objects.filter(user=upi).exists()
-    today = datetime.datetime.today()
-    # entry_exists = Entry.objects.filter(date_for=today).exists()
-
-    if request.method == 'POST':
-        sleep_form = SleepForm(data=request.POST)
-        # if entry_exists:
-        #     sleep_form = SleepForm(data=request.POST, instance=obj)
-        # else:
-        #     sleep_form = SleepForm(data=request.POST)
-
-    else:
-        sleep_form = SleepForm()
-        # if entry_exists:
-        #     sleep_form = SleepForm(instance=obj)
-        # else:
-        #     sleep_form = SleepForm()
-
-    context = {
-        'nbar': 'sleep',
-        'sleep_form': sleep_form,
-        'today': str(datetime.date.today().strftime("%m/%d/%Y")),
-        # 'entry_exists': entry_exists,
-    }
-    return render(request, 'calorie/sleep.html', context)
-
-@login_required
 def mood(request):
     upi = UserProfileInfo.objects.get(user=request.user)
     today = datetime.datetime.today()
@@ -168,6 +95,7 @@ def profile(request):
     }
     return render(request, 'calorie/profile.html', context)
 
+# authentication
 @login_required
 def user_logout(request):
     logout(request)
@@ -216,3 +144,96 @@ def user_login(request):
             return HttpResponse("Invalid login details given")
     else:
         return render(request, 'calorie/login.html', {})
+
+# calories
+@login_required
+def calories(request):
+    context = {
+        'nbar': 'calories',
+        'today': str(datetime.datetime.today().strftime("%m/%d/%Y")),
+    }
+
+    return render(request, 'calorie/calories.html', context)
+
+@login_required
+def load_calorie(request):
+    upi = UserProfileInfo.objects.get(user=request.user)
+    if request.method == 'POST':
+        date = datetime.datetime.strptime(request.POST.get('date_for'), "%Y-%m-%d")
+        entry_obj = Entry.objects.get(date_for=date)
+        entry_form = EntryForm(data=request.POST, instance=entry_obj)
+
+        if Calorie.objects.filter(entry=entry_obj).exists():
+            calorie_form = CalorieForm(data=request.POST, instance=Calorie.objects.get(entry=entry_obj))
+        else:
+            calorie_form = CalorieForm(data=request.POST)
+
+        if calorie_form.is_valid() and entry_form.is_valid():
+            entry = entry_form.save(commit=False)
+            entry.save()
+            calorie = calorie_form.save(commit=False)
+            calorie.entry = entry_obj
+            calorie.save()
+        else:
+            print(calorie_form.errors,entry_form.errors)
+
+        context = {
+            'nbar': 'calories',
+            'today': str(datetime.datetime.today().strftime("%m/%d/%Y")),
+        }
+
+        return render(request, 'calorie/calories.html', context)
+    else:
+        date = datetime.datetime.strptime(request.GET.get('date_picked'), "%m/%d/%Y")
+        calorie_form = CalorieForm()
+        if Entry.objects.filter(date_for=date).exists():
+            entry_obj = Entry.objects.get(date_for=date)
+            if Calorie.objects.filter(entry=entry_obj).exists():
+                calorie_form = CalorieForm(instance=Calorie.objects.get(entry=entry_obj))
+        else:
+            entry_obj = Entry(date_for=date, date_created=datetime.datetime.today())
+            entry_obj.user = upi
+            entry_obj.save()
+
+        entry_form = EntryForm(instance=entry_obj)
+
+        context = {
+            'nbar': 'calories',
+            'calorie_form': calorie_form,
+            'entry_form': entry_form,
+        }
+
+        return render(request, 'calorie/calorie_info.html', context)
+
+# sleep
+@login_required
+def sleep(request):
+    # upi = UserProfileInfo.objects.get(user=request.user)
+    # sleep_exists = Sleep.objects.filter(user=upi).exists()
+    today = datetime.datetime.today()
+    # entry_exists = Entry.objects.filter(date_for=today).exists()
+
+    if request.method == 'POST':
+        sleep_form = SleepForm(data=request.POST)
+        # if entry_exists:
+        #     sleep_form = SleepForm(data=request.POST, instance=obj)
+        # else:
+        #     sleep_form = SleepForm(data=request.POST)
+
+    else:
+        sleep_form = SleepForm()
+        # if entry_exists:
+        #     sleep_form = SleepForm(instance=obj)
+        # else:
+        #     sleep_form = SleepForm()
+
+    context = {
+        'nbar': 'sleep',
+        'sleep_form': sleep_form,
+        'today': str(datetime.date.today().strftime("%m/%d/%Y")),
+        # 'entry_exists': entry_exists,
+    }
+    return render(request, 'calorie/sleep.html', context)
+
+def load_sleep(request):
+    return render(request, 'calorie/sleep.html')

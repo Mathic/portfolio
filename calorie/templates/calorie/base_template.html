@@ -5,19 +5,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="{% static 'calorie/css/calorie.min.css' %}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-
-    <!-- jQuery -->
-    <script src="{% static 'calorie/js/jquery.js' %}"></script>
 
     <!-- jQuery UI -->
     <link rel="stylesheet" href="{% static 'calorie/css/jquery-ui.min.css' %}">
-    <script src="{% static 'calorie/js/jquery-ui.min.js' %}"></script>
 
     <!-- Timepicker -->
     <link rel="stylesheet" href="{% static 'calorie/css/jquery-ui-timepicker-addon.css' %}" />
-    <script src="{% static 'calorie/js/jquery-ui-timepicker-addon.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'calorie/css/calorie.min.css' %}">
 
     <title>{% block title %}{% endblock %}</title>
   </head>
@@ -85,6 +81,15 @@
       </div>
     {% block content %}{% endblock %}
     </div>
+    <!-- jQuery -->
+    <script src="{% static 'calorie/js/jquery.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <!-- jQuery UI -->
+    <script src="{% static 'calorie/js/jquery-ui.min.js' %}"></script>
+    <!-- Timepicker -->
+    <script src="{% static 'calorie/js/jquery-ui-timepicker-addon.js' %}"></script>
+
     <script src="{% static 'calorie/js/main.js' %}"></script>
+    {% block javascript %}{% endblock %}
   </body>
 </html>
