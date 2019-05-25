@@ -10,7 +10,7 @@
   <div class="cards calorie-entry">
     <h3>New Calorie Entry</h3>
     <label for="datepicker">Date: </label>
-    <input id="datepicker" class="datepicker" value="{{ today }}" date-picked-url="{% url 'ajax_load_calorie' %}">
+    <input id="calorie-datepicker" class="datepicker" value="{{ today }}" date-picked-url="{% url 'ajax_load_calorie' %}">
     <div id="load-calorie-info"></div>
   </div>
   <br>
@@ -26,5 +26,6 @@
 {% endblock %}
 
 {% block javascript %}
-<script src="{% static 'calorie/js/calories.js' %}"></script>
+<!-- <script src="{% static 'calorie/js/calories.js' %}"></script> -->
+<script src="{% static 'calorie/js/calorie-info.js' %}"></script>
 {% endblock %}

@@ -33,7 +33,7 @@ class Entry(models.Model):
     user = models.ForeignKey(UserProfileInfo, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.date_for)
+        return str(self.user.user.username + ' ' + str(self.date_for.strftime("%m-%d-%Y")))
 
 class Calorie(models.Model):
     entry_weight = models.DecimalField(max_digits=6, decimal_places=3, default=0)

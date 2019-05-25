@@ -17,4 +17,5 @@ urlpatterns = [
     # ajax requests
     path('ajax/load-calorie', views.load_calorie, name='ajax_load_calorie'),
     path('ajax/load-sleep', views.load_sleep, name='ajax_load_sleep'),
+    path('ajax/load-mood', views.load_mood, name='ajax_load_mood'),
 ]

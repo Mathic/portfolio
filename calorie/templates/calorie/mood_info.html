@@ -1,0 +1,14 @@
+{% load static %}
+
+<form id="mood-form" class="mood-form" method="post" enctype="multipart/form-data" action="{% url 'ajax_load_mood' %}">
+  {% csrf_token %}
+  {{ mood_form.as_p }}
+  {{ entry_form.as_p }}
+  <input class="btn-light" type="submit" name="" value="Save">
+</form>
+
+<p class="light-text">Edited: {{ entry.date_modified }}</p>
+
+<script type="text/javascript">
+  $('#id_mood_time').timepicker();
+</script>

@@ -10,7 +10,7 @@
   <div class="cards sleep-entry">
     <h3>New Sleep Entry</h3>
     <label for="datepicker">Date: </label>
-    <input id="datepicker" class="datepicker" value="{{ today }}" date-picked-url="{% url 'ajax_load_sleep' %}">
+    <input id="sleep-datepicker" class="datepicker" value="{{ today }}" date-picked-url="{% url 'ajax_load_sleep' %}">
     <form class="" action="{% url 'sleep' %}" method="post">
       {% csrf_token %}
       {{ sleep_form.as_p }}

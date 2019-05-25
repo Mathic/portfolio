@@ -10,12 +10,8 @@
   <div class="cards mood-entry">
     <h3>New Mood Entry</h3>
     <label for="datepicker">Date: </label>
-    <input id="datepicker" class="datepicker" value="{{ today }}">
-    <form class="" action="{% url 'mood' %}" method="post">
-      {% csrf_token %}
-      {{ mood_form.as_p }}
-      <input class="btn-light" type="submit" name="" value="Save">
-    </form>
+    <input id="mood-datepicker" class="datepicker" value="{{ today }}" date-picked-url="{% url 'ajax_load_mood' %}">
+    <div id="load-mood-info"></div>
     <div class="row">
 
     </div>
@@ -24,5 +20,5 @@
 {% endblock %}
 
 {% block javascript %}
-<script src="{% static 'calorie/js/calories.js' %}"></script>
+<script src="{% static 'calorie/js/mood-info.js' %}"></script>
 {% endblock %}

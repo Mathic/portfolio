@@ -1,25 +1,31 @@
-$("#savecalorie").click(function() {
-  var date = $("#datepicker").val();
+$(document).ready(function() {
+  load_calorie_form();
 
+  $(function () {
+    $("#calorie-datepicker").datepicker({maxDate: '0'});
+  });
+
+  $("#calorie-datepicker").change(function() {
+    load_calorie_form();
+  });
+});
+
+function load_calorie_form() {
+  var date = $('#calorie-datepicker').val();
   if(date !== '') {
-    console.log('save clicked');
-    var url = $("#datepicker").attr("save-calorie-url");
-    console.log(date);
-
+    var url = $('#calorie-datepicker').attr("date-picked-url");
     $.ajax({
-      method: "POST",
-      headers: { "X-CSRFToken": $.cookie("csrftoken") },
       url: url,
       data: {
         'date_picked': date
       },
       success: function (data) {
-        console.log('savecalorie')
+        $("#load-calorie-info").html(data);
         console.log('success');
       },
       error: function(data) {
-        console.log('fail savecalorie');
+        console.log('fail');
       }
     });
   }
-});
+};

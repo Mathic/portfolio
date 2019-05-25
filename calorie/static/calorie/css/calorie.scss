@@ -158,6 +158,12 @@ main {
   margin-right: 5px;
 }
 
+.light-text {
+  font-size: 14px;
+  font-weight: 100;
+  color: lighten($secondary-color, 25);
+}
+
 // Form styles
 [type='color'],
 [type='date'],
