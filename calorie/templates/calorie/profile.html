@@ -8,11 +8,7 @@
   <h2>Profile</h2>
     <div class="settings">
     <div class="cards settings-personal">
-      {% if setup_exists %}
       <h3>{{ name }}</h3>
-      {% else %}
-      <h3>{{ request.user.username }}</h3>
-      {% endif %}
       <hr>
       <div class="settings-profile">
         <div class="portrait">

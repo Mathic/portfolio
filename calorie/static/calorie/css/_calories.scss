@@ -1,0 +1,20 @@
+main#calories {
+  width: -webkit-fill-available;
+}
+
+.calorie {
+  display: flex;
+
+  .cards {
+    margin-left: 1rem;
+  }
+
+  &-entry {
+    grid-area: entry;
+    max-width: 350px;
+  }
+
+  &-table {
+    grid-area: table;
+  }
+}

@@ -7,20 +7,32 @@
 <main id="calories">
   <h2>Calories</h2>
 
-  <div class="cards calorie-entry">
-    <h3>New Calorie Entry</h3>
-    <label for="datepicker">Date: </label>
-    <input id="calorie-datepicker" class="datepicker" value="{{ today }}" date-picked-url="{% url 'ajax_load_calorie' %}">
-    <div id="load-calorie-info"></div>
-  </div>
-  <br>
-  <div class="cards calorie-table">
-    <h3>To do:</h3>
-    <ul>
-      <li><del>Show data from date picked</del></li>
-      <li>Show all data in a table</li>
-      <li>Graph on dashboard</li>
-    </ul>
+  <div class="calorie">
+    <div class="cards calorie-entry">
+      <h3>New Calorie Entry</h3>
+      <label for="datepicker">Date: </label>
+      <input id="calorie-datepicker" class="datepicker" value="{{ today }}" date-picked-url="{% url 'ajax_load_calorie' %}">
+      <div id="load-calorie-info"></div>
+    </div>
+    <br>
+    <div class="cards calorie-table">
+      <table>
+        <tr>
+          <th>Date</th>
+          <th>Entry Weight</th>
+          <th>In</th>
+          <th>Out</th>
+        </tr>
+        {% for c in cals %}
+        <tr>
+          <td>{{ c.entry.date_for }}</td>
+          <td>{{ c.entry_weight }}</td>
+          <td>{{ c.calories_in }}</td>
+          <td>{{ c.calories_out }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
   </div>
 </main>
 {% endblock %}

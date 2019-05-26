@@ -64,6 +64,24 @@
     grid-template-columns: 1fr;
   }
 
+  .calorie {
+    display: grid;
+    grid-gap: 30px;
+    grid-template-areas:
+    'entry'
+    'table';
+    grid-template-columns: 1fr;
+  }
+
+  .mood {
+    display: grid;
+    grid-gap: 30px;
+    grid-template-areas:
+    'entry'
+    'table';
+    grid-template-columns: 1fr;
+  }
+
   .settings {
     display: grid;
     grid-gap: 30px;
@@ -142,6 +160,24 @@
     'stats3'
     'stats4'
     'stats5';
+    grid-template-columns: 1fr;
+  }
+
+  .calorie {
+    display: grid;
+    grid-gap: 30px;
+    grid-template-areas:
+    'entry'
+    'table';
+    grid-template-columns: 1fr;
+  }
+
+  .mood {
+    display: grid;
+    grid-gap: 30px;
+    grid-template-areas:
+    'entry'
+    'table';
     grid-template-columns: 1fr;
   }
 

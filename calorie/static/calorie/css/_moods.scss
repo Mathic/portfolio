@@ -1,0 +1,21 @@
+main#moods {
+  width: -webkit-fill-available;
+}
+
+.mood {
+  display: flex;
+
+  .cards {
+    margin-left: 1rem;
+  }
+
+  &-entry {
+    grid-area: entry;
+    min-width: 250px;
+    max-width: 300px;
+  }
+
+  &-table {
+    grid-area: table;
+  }
+}
