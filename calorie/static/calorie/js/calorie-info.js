@@ -14,22 +14,24 @@ $(document).ready(function() {
 
 function load_calorie_form() {
   var date = $('#calorie-datepicker').val();
-  if(date !== '') {
-    var url = $('#calorie-datepicker').attr("date-picked-url");
-    var calorie_table = $('#calorie-datepicker').attr("calorie-table-url");
-    $.ajax({
-      url: url,
-      data: {
-        'date_picked': date
-      },
-      success: function (data) {
-        $("#load-calorie-info").html(data);
-        $("#calories-target").load(calorie_table);
-        console.log('success');
-      },
-      error: function(data) {
-        console.log('fail');
-      }
-    });
-  }
+  var url = $('#calorie-datepicker').attr("date-picked-url");
+  var calorie_table = $('#calorie-datepicker').attr("calorie-table-url");
+  $.ajax({
+    url: url,
+    data: {
+      'date_picked': date
+    },
+    success: function (data) {
+      $("#load-calorie-info").html(data);
+      $("#calories-target").load(calorie_table);
+      // $('#avgWeight').text(data.weight)
+      // $('#avgCalIn').text(data.calin)
+      // $('#avgCalOut').text(data.calout)
+      // $('#bmr').text(data.bmr)
+      console.log('success');
+    },
+    error: function(data) {
+      console.log('fail');
+    }
+  });
 };

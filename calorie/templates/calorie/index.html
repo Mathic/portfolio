@@ -9,36 +9,41 @@
   <div class="dashboard-stats">
     <div class="cards stats stats-1">
       <h3>BMR</h3>
-      <p>1486</p>
+      <p id="bmr"></p>
     </div>
     <div class="cards stats stats-2">
       <h3>Total Deficit</h3>
-      <p>1157.91</p>
+      <p id="totalDeficit"></p>
     </div>
     <div class="cards stats stats-3">
       <h3>Daily Deficit</h3>
-      <p>165.42</p>
+      <p id="dailyDeficit"></p>
     </div>
     <div class="cards stats stats-4">
       <h3>Weekly Deficit</h3>
-      <p>1157.91</p>
+      <p id="weeklyDeficit"></p>
     </div>
   </div>
 
   <div class="cards dashboard-graphs">
-    <h2>Graph</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In iaculis tempor urna vitae auctor. Phasellus commodo, purus sed accumsan mattis, lectus orci bibendum magna, non feugiat metus nunc non ex. Ut vel lorem a nisl finibus ultrices. Etiam ornare, ipsum quis lacinia dignissim, orci velit sodales quam, eu lobortis ligula eros eu dui. Morbi nibh odio, placerat vel euismod et, imperdiet vel risus. In eget risus a felis congue consequat. Nullam eleifend eget elit non bibendum.</p>
+    <!-- <h2>Graph</h2> -->
+    <div id="plotlyChart" style="width:100%; height:600px;"></div>
+    <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In iaculis tempor urna vitae auctor. Phasellus commodo, purus sed accumsan mattis, lectus orci bibendum magna, non feugiat metus nunc non ex. Ut vel lorem a nisl finibus ultrices. Etiam ornare, ipsum quis lacinia dignissim, orci velit sodales quam, eu lobortis ligula eros eu dui. Morbi nibh odio, placerat vel euismod et, imperdiet vel risus. In eget risus a felis congue consequat. Nullam eleifend eget elit non bibendum.</p> -->
   </div>
 
-  <div class="cards">
+  <div class="cards to-do">
     <h3>To do:</h3>
     <ul>
-      <li><del>Show data from date picked</del></li>
-      <li><del>Show all data in a table</del></li>
-      <li>Formulas for BMR and averages</li>
-      <li>Table css</li>
-      <li>Graph on dashboard</li>
+      <li>Unit conversion</li>
+      <li>Search by month/year</li>
+      <li>Formulas for exercise added to calories out (calories out is total of exercises plus bmr)</li>
+      <li>Calories in sum of food eaten (implement food the same way as exercises?)</li>
+      <li>Multiple moods per day?</li>
     </ul>
   </div>
 </main>
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'calorie/js/dashboard.js' %}"></script>
 {% endblock %}

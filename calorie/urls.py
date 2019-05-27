@@ -20,4 +20,7 @@ urlpatterns = [
     path('ajax/load-sleep', views.load_sleep, name='ajax_load_sleep'),
     path('ajax/load-mood', views.load_mood, name='ajax_load_mood'),
     path('ajax/load-mood-table', views.load_mood_table, name='ajax_load_mood_table'),
+
+    # graph APIs
+    path('api/chart/health_graph', views.HealthGraph.as_view(), name='health_graph'),
 ]

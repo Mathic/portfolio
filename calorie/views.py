@@ -1,5 +1,7 @@
+from decimal import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.db.models import Avg
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -12,6 +14,8 @@ from calorie.forms import *
 from calorie.models import *
 
 import datetime
+
+CM_PER_INCH = Decimal(2.54)
 
 # Create your views here.
 def index(request):
@@ -104,9 +108,22 @@ def user_login(request):
 # calories
 @login_required
 def calories(request):
+    upi = UserProfileInfo.objects.get(user=request.user)
+    entries = Entry.objects.filter(user=upi)
+    cals = Calorie.objects.filter(entry__in=entries)
+    bmr = weight = calin = calout = 0
+    weight = round(cals.aggregate(Avg('entry_weight'))['entry_weight__avg'], 2)
+    calin = round(cals.aggregate(Avg('calories_in'))['calories_in__avg'], 2)
+    calout = round(cals.aggregate(Avg('calories_out'))['calories_out__avg'], 2)
+    bmr = calculateBMR(upi, cals.reverse()[0].entry_weight)
+
     context = {
         'nbar': 'calories',
         'today': str(datetime.datetime.today().strftime("%m/%d/%Y")),
+        'weight': weight,
+        'calin': calin,
+        'calout': calout,
+        'bmr': str(round(bmr, 2)),
     }
     return render(request, 'calorie/calories.html', context)
 
@@ -142,15 +159,18 @@ def load_calorie(request):
             'entry': entry_obj,
             'today': str(datetime.date.today().strftime("%m/%d/%Y")),
         }
-
         return render(request, 'calorie/calorie_info.html', context)
 
+@login_required
 def load_calorie_table(request):
     upi = UserProfileInfo.objects.get(user=request.user)
-    entries = Entry.objects.filter(user=upi).order_by('date_for')
-    cals = Calorie.objects.filter(entry__in=entries)
+    entries = Entry.objects.filter(user=upi)
+    cals = Calorie.objects.filter(entry__in=entries).order_by('entry__date_for')
 
-    return render(request, 'calorie/calorie_table.html', {'cals': cals,})
+    context = {
+        'cals': cals,
+    }
+    return render(request, 'calorie/calorie_table.html', context)
 
 # sleep
 @login_required
@@ -228,14 +248,85 @@ def load_mood(request):
         }
         return render(request, 'calorie/mood_info.html', context)
 
+@login_required
 def load_mood_table(request):
     upi = UserProfileInfo.objects.get(user=request.user)
-    entries = Entry.objects.filter(user=upi).order_by('date_for')
-    moods = Mood.objects.filter(entry__in=entries)
+    entries = Entry.objects.filter(user=upi)
+    moods = Mood.objects.filter(entry__in=entries).order_by('entry__date_for')
 
     return render(request, 'calorie/mood_table.html', {'moods': moods,})
 
+# graph APIs
+class HealthGraph(APIView):
+    def get(self, request, format=None):
+        upi = UserProfileInfo.objects.get(user=request.user)
+        days = cals_in = cals_out = weight = moods = []
+        numdays = bmr = deficit = daily = weekly = 0
+        recent_weight = 0
+
+        # populate the graph
+        if Entry.objects.filter(user=upi).exists():
+            entries = Entry.objects.filter(user=upi).order_by('date_for')
+
+            for entry in entries:
+                days.append(str(entry.date_for.strftime("%m-%d-%Y")))
+
+            cals_in = {el:0 for el in days}
+            cals_out = {el:0 for el in days}
+            weight = {el:0 for el in days}
+            moods = {el:0 for el in days}
+
+            for day in days:
+                entry = Entry.objects.get(user=upi,date_for=datetime.datetime.strptime(day, "%m-%d-%Y"))
+                if Calorie.objects.filter(entry=entry).exists():
+                    cals_in[day] = Calorie.objects.get(entry=entry).calories_in
+                    cals_out[day] = Calorie.objects.get(entry=entry).calories_out
+                    weight[day] = Calorie.objects.get(entry=entry).entry_weight
+                    recent_weight = weight[day]
+                    deficit += (cals_out[day] - cals_in[day])
+                    print('cals sum: ',(cals_out[day] - cals_in[day]))
+                    print('deficit: ',deficit)
+                    numdays += 1
+                else:
+                    cals_in[day] = 0
+                    cals_out[day] = 0
+
+                if Mood.objects.filter(entry=entry).exists():
+                    moods[day] = Mood.objects.get(entry=entry).mood_rating
+                else:
+                    moods[day] = 0
+
+        # get data for weekly and daily calorie deficit from total deficit
+        daily = deficit/numdays
+        weekly = deficit/(numdays/Decimal(7.0))
+
+        if recent_weight == 0:
+            recent_weight = setup.weight
+
+        bmr = calculateBMR(upi, recent_weight)
+
+        data = {
+            'days': days,
+            'cals_in': list(cals_in.values()),
+            'cals_out': list(cals_out.values()),
+            'moods': list(moods.values()),
+            'weight': list(weight.values()),
+            'deficit': str(round(deficit, 2)),
+            'daily': str(round(daily, 2)),
+            'weekly': str(round(weekly, 2)),
+            'bmr': str(round(bmr, 2)),
+        }
+        return Response(data)
+
 # helper functions
+def calculateBMR(upi, recent_weight):
+    setup = Setup.objects.get(user=upi)
+    # calculate BMR
+    if setup.gender == 'M':
+        return 66+(Decimal(6.23)*recent_weight)+(Decimal(12.7)*(setup.height/CM_PER_INCH))-(Decimal(6.8)*setup.age)
+    else:
+        return 665+(Decimal(4.35)*recent_weight)+(Decimal(4.7)*(setup.height/CM_PER_INCH))-(Decimal(4.7)*setup.age)
+
 def create_entry(request):
     upi = UserProfileInfo.objects.get(user=request.user)
     if request.method == 'POST':

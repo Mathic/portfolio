@@ -6,6 +6,24 @@
 {% block content %}
 <main id="calories">
   <h2>Calories</h2>
+  <div class="dashboard-stats">
+    <div class="cards stats stats-1">
+      <h3>BMR</h3>
+      <p id="bmr">{{ bmr }}</p>
+    </div>
+    <div class="cards stats stats-2">
+      <h3>Average Weight</h3>
+      <p id="avgWeight">{{ weight }}</p>
+    </div>
+    <div class="cards stats stats-3">
+      <h3>Average Calories In</h3>
+      <p id="avgCalIn">{{ calin }}</p>
+    </div>
+    <div class="cards stats stats-4">
+      <h3>Average Calories Out</h3>
+      <p id="avgCalOut">{{ calout }}</p>
+    </div>
+  </div>
 
   <div class="calorie">
     <div class="cards calorie-entry">
