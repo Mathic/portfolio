@@ -11,28 +11,10 @@
     <div class="cards mood-entry">
       <h3>New Mood Entry</h3>
       <label for="datepicker">Date: </label>
-      <input id="mood-datepicker" class="datepicker" value="{{ today }}" date-picked-url="{% url 'ajax_load_mood' %}">
+      <input id="mood-datepicker" class="datepicker" value="{{ today }}" date-picked-url="{% url 'ajax_load_mood' %}" mood-table-url="{% url 'ajax_load_mood_table' %}">
       <div id="load-mood-info"></div>
     </div>
-    <br>
-    <div class="cards calorie-table">
-      <table>
-        <tr>
-          <th>Date</th>
-          <th>Time</th>
-          <th>Rating</th>
-          <th>Notes</th>
-        </tr>
-        {% for m in moods %}
-        <tr>
-          <td>{{ m.entry.date_for }}</td>
-          <td>{{ m.mood_time }}</td>
-          <td>{{ m.mood_rating }}</td>
-          <td>{{ m.mood_notes }}</td>
-        </tr>
-        {% endfor %}
-      </table>
-    </div>
+    <div id="mood-target" class="cards"></div>
   </div>
 </main>
 {% endblock %}

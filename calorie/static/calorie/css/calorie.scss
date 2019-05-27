@@ -3,6 +3,8 @@
 @import 'profile';
 @import 'calories';
 @import 'moods';
+// http://jwebcat.github.io/tables-sass/
+@import 'tables';
 
 * {
   box-sizing: border-box;
@@ -207,6 +209,15 @@ label {
   li {
     list-style: none;
     display: inline-flex;
+  }
+}
+
+.refine-search {
+  display: flex;
+  max-width: 300px;
+
+  label, input, select {
+    margin-right: 0.5rem;
   }
 }
 

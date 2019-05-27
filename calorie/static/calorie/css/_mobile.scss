@@ -13,6 +13,15 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .mood {
+    display: grid;
+    grid-gap: 30px;
+    grid-template-areas:
+    'entry'
+    'table';
+    grid-template-columns: 1fr;
+  }
+
   .settings {
     display: grid;
     grid-gap: 30px;

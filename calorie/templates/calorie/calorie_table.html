@@ -1,0 +1,34 @@
+<div id="calories-table" class="calorie-table">
+  <div class="refine-search">
+    <label for="month-chooser">Month: </label>
+    <select id="month-chooser" class="" name="">
+      <option value="Jan">Jan</option>
+      <option value="Jan">Feb</option>
+      <option value="Jan">Mar</option>
+      <option value="Jan">Apr</option>
+      <option value="Jan">May</option>
+    </select>
+    <label for="year-chooser">Year: </label>
+    <select id="year-chooser" class="" name="">
+      <option value="Jan">2018</option>
+      <option value="Jan">2019</option>
+    </select>
+  </div>
+
+  <table class="table">
+    <tr>
+      <th>Date</th>
+      <th>Entry Weight</th>
+      <th>In</th>
+      <th>Out</th>
+    </tr>
+    {% for c in cals %}
+    <tr>
+      <td>{{ c.entry.date_for }}</td>
+      <td>{{ c.entry_weight }}</td>
+      <td>{{ c.calories_in }}</td>
+      <td>{{ c.calories_out }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>

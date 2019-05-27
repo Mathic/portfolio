@@ -1,0 +1,34 @@
+<div class="mood-table">
+  <div class="refine-search">
+    <label for="month-chooser">Month: </label>
+    <select id="month-chooser" class="" name="">
+      <option value="Jan">Jan</option>
+      <option value="Jan">Feb</option>
+      <option value="Jan">Mar</option>
+      <option value="Jan">Apr</option>
+      <option value="Jan">May</option>
+    </select>
+    <label for="year-chooser">Year: </label>
+    <select id="year-chooser" class="" name="">
+      <option value="Jan">2018</option>
+      <option value="Jan">2019</option>
+    </select>
+  </div>
+  
+  <table class="table">
+    <tr>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Rating</th>
+      <th style="width:60%">Notes</th>
+    </tr>
+    {% for m in moods %}
+    <tr>
+      <td>{{ m.entry.date_for }}</td>
+      <td>{{ m.mood_time }}</td>
+      <td>{{ m.mood_rating }}</td>
+      <td>{{ m.mood_notes }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>

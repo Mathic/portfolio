@@ -41,6 +41,9 @@ class Calorie(models.Model):
     calories_out = models.DecimalField(max_digits=6, decimal_places=2, default=0)
     entry = models.ForeignKey(Entry, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return str(self.entry.user.user.username + ' ' + str(self.entry.date_for.strftime("%m-%d-%Y")))
+
 class Sleep(models.Model):
     time_awake = models.DateTimeField(blank=True)
     time_slept = models.DateTimeField(blank=True)
@@ -52,8 +55,14 @@ class Exercise(models.Model):
     heart_rate = models.IntegerField(default=0)
     entry = models.ForeignKey(Entry, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return str(self.entry.user.user.username + ' ' + str(self.entry.date_for.strftime("%m-%d-%Y")))
+
 class Mood(models.Model):
     mood_rating = models.IntegerField(default=0)
     mood_time = models.TimeField()
     mood_notes = models.CharField(max_length=300)
     entry = models.ForeignKey(Entry, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.entry.user.user.username + ' ' + str(self.entry.date_for.strftime("%m-%d-%Y")))

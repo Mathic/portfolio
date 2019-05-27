@@ -11,28 +11,10 @@
     <div class="cards calorie-entry">
       <h3>New Calorie Entry</h3>
       <label for="datepicker">Date: </label>
-      <input id="calorie-datepicker" class="datepicker" value="{{ today }}" date-picked-url="{% url 'ajax_load_calorie' %}">
+      <input id="calorie-datepicker" class="datepicker" value="{{ today }}" date-picked-url="{% url 'ajax_load_calorie' %}" calorie-table-url="{% url 'ajax_load_calorie_table' %}">
       <div id="load-calorie-info"></div>
     </div>
-    <br>
-    <div class="cards calorie-table">
-      <table>
-        <tr>
-          <th>Date</th>
-          <th>Entry Weight</th>
-          <th>In</th>
-          <th>Out</th>
-        </tr>
-        {% for c in cals %}
-        <tr>
-          <td>{{ c.entry.date_for }}</td>
-          <td>{{ c.entry_weight }}</td>
-          <td>{{ c.calories_in }}</td>
-          <td>{{ c.calories_out }}</td>
-        </tr>
-        {% endfor %}
-      </table>
-    </div>
+    <div id="calorie-target" class="cards"></div>
   </div>
 </main>
 {% endblock %}

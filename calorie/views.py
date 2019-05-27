@@ -104,14 +104,9 @@ def user_login(request):
 # calories
 @login_required
 def calories(request):
-    upi = UserProfileInfo.objects.get(user=request.user)
-    entries = Entry.objects.filter(user=upi).order_by('date_for')
-    cals = Calorie.objects.filter(entry__in=entries)
-
     context = {
         'nbar': 'calories',
         'today': str(datetime.datetime.today().strftime("%m/%d/%Y")),
-        'cals': cals,
     }
     return render(request, 'calorie/calories.html', context)
 
@@ -145,9 +140,17 @@ def load_calorie(request):
             'calorie_form': calorie_form,
             'entry_form': entry_form,
             'entry': entry_obj,
+            'today': str(datetime.date.today().strftime("%m/%d/%Y")),
         }
 
         return render(request, 'calorie/calorie_info.html', context)
+
+def load_calorie_table(request):
+    upi = UserProfileInfo.objects.get(user=request.user)
+    entries = Entry.objects.filter(user=upi).order_by('date_for')
+    cals = Calorie.objects.filter(entry__in=entries)
+
+    return render(request, 'calorie/calorie_table.html', {'cals': cals,})
 
 # sleep
 @login_required
@@ -186,14 +189,9 @@ def load_sleep(request):
 # mood
 @login_required
 def mood(request):
-    upi = UserProfileInfo.objects.get(user=request.user)
-    entries = Entry.objects.filter(user=upi).order_by('date_for')
-    moods = Mood.objects.filter(entry__in=entries)
-
     context = {
         'nbar': 'mood',
         'today': str(datetime.date.today().strftime("%m/%d/%Y")),
-        'moods': moods,
     }
     return render(request, 'calorie/mood.html', context)
 
@@ -226,8 +224,16 @@ def load_mood(request):
             'mood_form': mood_form,
             'entry_form': entry_form,
             'entry': entry_obj,
+            'today': str(datetime.date.today().strftime("%m/%d/%Y")),
         }
         return render(request, 'calorie/mood_info.html', context)
+
+def load_mood_table(request):
+    upi = UserProfileInfo.objects.get(user=request.user)
+    entries = Entry.objects.filter(user=upi).order_by('date_for')
+    moods = Mood.objects.filter(entry__in=entries)
+
+    return render(request, 'calorie/mood_table.html', {'moods': moods,})
 
 # helper functions
 def create_entry(request):
@@ -237,11 +243,10 @@ def create_entry(request):
     else:
         date = datetime.datetime.strptime(request.GET.get('date_picked'), "%m/%d/%Y")
 
-    if Entry.objects.filter(date_for=date).exists():
-        entry_obj = Entry.objects.get(date_for=date)
+    if Entry.objects.filter(user=upi,date_for=date).exists():
+        entry_obj = Entry.objects.get(user=upi,date_for=date)
     else:
-        entry_obj = Entry(date_for=date, date_created=datetime.datetime.today())
-        entry_obj.user = upi
+        entry_obj = Entry(date_for=date, date_created=datetime.datetime.today(),user=upi)
         entry_obj.save()
 
     return entry_obj
