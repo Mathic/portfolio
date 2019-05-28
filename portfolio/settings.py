@@ -30,6 +30,7 @@ DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
+    'mathfilters',
     'rest_framework',
     'plotly',
     'info',

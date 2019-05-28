@@ -1,3 +1,4 @@
+{% load mathfilters %}
 <div id="calories-table" class="calorie-table">
   <div class="refine-search">
     <label for="month-chooser">Month: </label>
@@ -18,9 +19,10 @@
   <table class="table">
     <tr>
       <th>Date</th>
-      <th>Entry Weight</th>
+      <th>Weight</th>
       <th>In</th>
       <th>Out</th>
+      <th>Net</th>
     </tr>
     {% for c in cals %}
     <tr>
@@ -28,6 +30,13 @@
       <td>{{ c.entry_weight }}</td>
       <td>{{ c.calories_in }}</td>
       <td>{{ c.calories_out }}</td>
+      {% with net=c.calories_out|sub:c.calories_in %}
+        {% if net <= 0 %}
+        <td style="color: red">{{ net|abs }}</td>
+        {% else %}
+        <td style="color: green">{{ net }}</td>
+        {% endif %}
+      {% endwith %}
     </tr>
     {% endfor %}
   </table>

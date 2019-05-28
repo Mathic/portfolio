@@ -110,20 +110,20 @@ def user_login(request):
 def calories(request):
     upi = UserProfileInfo.objects.get(user=request.user)
     entries = Entry.objects.filter(user=upi)
-    cals = Calorie.objects.filter(entry__in=entries)
+    cals = Calorie.objects.filter(entry__in=entries).order_by('entry__date_for')
     bmr = weight = calin = calout = 0
-    weight = round(cals.aggregate(Avg('entry_weight'))['entry_weight__avg'], 2)
-    calin = round(cals.aggregate(Avg('calories_in'))['calories_in__avg'], 2)
-    calout = round(cals.aggregate(Avg('calories_out'))['calories_out__avg'], 2)
+    weight = cals.aggregate(Avg('entry_weight'))['entry_weight__avg']
+    calin = cals.aggregate(Avg('calories_in'))['calories_in__avg']
+    calout = cals.aggregate(Avg('calories_out'))['calories_out__avg']
     bmr = calculateBMR(upi, cals.reverse()[0].entry_weight)
 
     context = {
         'nbar': 'calories',
         'today': str(datetime.datetime.today().strftime("%m/%d/%Y")),
-        'weight': weight,
-        'calin': calin,
-        'calout': calout,
-        'bmr': str(round(bmr, 2)),
+        'weight': round(weight, 2),
+        'calin': round(calin, 2),
+        'calout': round(calout, 2),
+        'bmr': round(bmr, 2),
     }
     return render(request, 'calorie/calories.html', context)
 
@@ -171,6 +171,18 @@ def load_calorie_table(request):
         'cals': cals,
     }
     return render(request, 'calorie/calorie_table.html', context)
+
+@login_required
+def load_exercise(request):
+    if request.method == 'POST':
+        exercise_form = ExerciseForm(data=request.POST)
+    else:
+        exercise_form = ExerciseForm()
+
+    context = {
+        'exercise_form': exercise_form,
+    }
+    return render(request, 'calorie/exercise_form.html', context)
 
 # sleep
 @login_required
@@ -257,10 +269,11 @@ def load_mood_table(request):
     return render(request, 'calorie/mood_table.html', {'moods': moods,})
 
 # graph APIs
-class HealthGraph(APIView):
+class CalorieIntake(APIView):
     def get(self, request, format=None):
         upi = UserProfileInfo.objects.get(user=request.user)
-        days = cals_in = cals_out = weight = moods = []
+        days = cals_in = cals_out = []
+        cal_neg = cal_pos = weight = moods = []
         numdays = bmr = deficit = daily = weekly = 0
         recent_weight = 0
 
@@ -273,6 +286,8 @@ class HealthGraph(APIView):
 
             cals_in = {el:0 for el in days}
             cals_out = {el:0 for el in days}
+            cal_neg = {el:0 for el in days}
+            cal_pos = {el:0 for el in days}
             weight = {el:0 for el in days}
             moods = {el:0 for el in days}
 
@@ -281,15 +296,20 @@ class HealthGraph(APIView):
                 if Calorie.objects.filter(entry=entry).exists():
                     cals_in[day] = Calorie.objects.get(entry=entry).calories_in
                     cals_out[day] = Calorie.objects.get(entry=entry).calories_out
-                    weight[day] = Calorie.objects.get(entry=entry).entry_weight
-                    recent_weight = weight[day]
+                    recent_weight = Calorie.objects.get(entry=entry).entry_weight
                     deficit += (cals_out[day] - cals_in[day])
-                    print('cals sum: ',(cals_out[day] - cals_in[day]))
-                    print('deficit: ',deficit)
                     numdays += 1
+                    calnet = cals_out[day] - cals_in[day]
+                    if calnet < 0:
+                        cal_neg[day] = calnet
+                        cal_pos[day] = 0
+                    else:
+                        cal_neg[day] = 0
+                        cal_pos[day] = calnet
+                    weight[day] = Calorie.objects.get(entry=entry).entry_weight
                 else:
-                    cals_in[day] = 0
-                    cals_out[day] = 0
+                    cals_in[day] = cals_out[day] = 0
+                    cal_neg[day] = cal_pos[day] = weight[day] = 0
 
                 if Mood.objects.filter(entry=entry).exists():
                     moods[day] = Mood.objects.get(entry=entry).mood_rating
@@ -301,20 +321,20 @@ class HealthGraph(APIView):
         weekly = deficit/(numdays/Decimal(7.0))
 
         if recent_weight == 0:
-            recent_weight = setup.weight
-
-        bmr = calculateBMR(upi, recent_weight)
+            recent_weight = Setup.objects.get(user=upi).weight
 
         data = {
             'days': days,
             'cals_in': list(cals_in.values()),
             'cals_out': list(cals_out.values()),
-            'moods': list(moods.values()),
+            'cal_neg': list(cal_neg.values()),
+            'cal_pos': list(cal_pos.values()),
             'weight': list(weight.values()),
-            'deficit': str(round(deficit, 2)),
-            'daily': str(round(daily, 2)),
-            'weekly': str(round(weekly, 2)),
-            'bmr': str(round(bmr, 2)),
+            'moods': list(moods.values()),
+            'deficit': round(deficit, 2),
+            'daily': round(daily, 2),
+            'weekly': round(weekly, 2),
+            'bmr': round(calculateBMR(upi, recent_weight), 2),
         }
         return Response(data)
 

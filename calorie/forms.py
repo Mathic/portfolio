@@ -1,6 +1,6 @@
 # dappx/forms.py
 from django import forms
-from calorie.models import Entry, Calorie, Mood, Setup, Sleep, UserProfileInfo
+from calorie.models import Entry, Exercise, Calorie, Mood, Setup, Sleep, UserProfileInfo
 from django.contrib.auth.models import User
 
 GENDER_CHOICES = [
@@ -50,6 +50,11 @@ class CalorieForm(forms.ModelForm):
     class Meta():
         model = Calorie
         fields = ('entry_weight', 'calories_in', 'calories_out')
+
+class ExerciseForm(forms.ModelForm):
+    class Meta():
+        model = Exercise
+        fields = ('exercise_duration', 'heart_rate')
 
 class SleepForm(forms.ModelForm):
     class Meta():

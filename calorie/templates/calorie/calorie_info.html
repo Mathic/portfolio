@@ -1,12 +1,20 @@
 {% load static %}
 
-<form id="calories-form" class="calories-form" method="post" enctype="multipart/form-data" action="{% url 'ajax_load_calorie' %}">
+<form id="calories-form" class="calories-form" method="post" enctype="multipart/form-data" action="{% url 'ajax_load_calorie' %}" calorie-exercise-url="{% url 'ajax_load_exercise' %}">
   {% csrf_token %}
   {{ calorie_form.as_p }}
   {{ entry_form.as_p }}
-  <a href="#"><i class="add-exercise-button fas fa-plus-circle"></i></a><label for="add_exercise">Add Exercise</label>
-  <br><br>
+  <div id="exercise-target" class=""></div>
+  <div class="add-exercise">
+    <span id="add-exercise-button" style="cursor: pointer">
+      <i class="add-exercise-button fas fa-plus-circle"></i>
+      <label for="add_exercise" style="cursor: pointer">Add Exercise</label>
+    </span>
+  </div>
+  <br>
   <input class="btn-light" type="submit" name="" value="Save">
 </form>
 
 <p class="light-text">Edited: {{ entry.date_modified }}</p>
+
+<script src="{% static 'calorie/js/exercise-info.js' %}"></script>

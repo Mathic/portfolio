@@ -17,10 +17,11 @@ urlpatterns = [
     # ajax requests
     path('ajax/load-calorie', views.load_calorie, name='ajax_load_calorie'),
     path('ajax/load-calorie-table', views.load_calorie_table, name='ajax_load_calorie_table'),
+    path('ajax/load-exercise', views.load_exercise, name='ajax_load_exercise'),
     path('ajax/load-sleep', views.load_sleep, name='ajax_load_sleep'),
     path('ajax/load-mood', views.load_mood, name='ajax_load_mood'),
     path('ajax/load-mood-table', views.load_mood_table, name='ajax_load_mood_table'),
 
     # graph APIs
-    path('api/chart/health_graph', views.HealthGraph.as_view(), name='health_graph'),
+    path('api/chart/calorie_intake', views.CalorieIntake.as_view(), name='calorie_intake'),
 ]
