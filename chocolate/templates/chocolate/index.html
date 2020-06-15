@@ -1,0 +1,15 @@
+{% extends "chocolate/base_template.html" %}
+{% load static %}
+
+{% block title %}Chocolate Bar Ratings{% endblock %}
+
+{% block content %}
+<main>
+  Hello, World <br>
+  <hr>
+  
+  {% for i in cbar %}
+    {{i}}<br>
+  {% endfor %}
+</main>
+{% endblock %}

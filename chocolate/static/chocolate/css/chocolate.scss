@@ -1,0 +1,41 @@
+$primary-color: #888;
+$secondary-color: #f8f9fa;
+
+@function set-text-color($color) {
+  @if (lightness($color) > 40) {
+    @return #000;
+  } @else {
+    @return #fff;
+  }
+}
+
+@mixin easeOut {
+  transition: all 0.5s ease-out;
+}
+
+body {
+  background: $secondary-color;
+  color: set-text-color($secondary-color);
+  margin: 0;
+}
+
+.navigation-bar {
+  background: $primary-color;
+  color: set-text-color($primary-color);
+  width: 100%;
+  padding: 1em;
+
+  a {
+    text-decoration: none;
+    padding: 1em;
+    &:hover {
+      text-transform: uppercase;
+      color: $secondary-color;
+      @include easeOut;
+    }
+  }
+}
+
+main {
+  padding: 1em;
+}
