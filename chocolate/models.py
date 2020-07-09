@@ -1,5 +1,4 @@
 from django.db import models
-import pandas as pd
 
 #"Company","Bar_Name","REF","Review_Date","Cocoa_Percent","Company_Location","Rating","Bean_Type","Origin"
 
