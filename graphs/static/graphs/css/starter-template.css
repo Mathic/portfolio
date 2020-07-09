@@ -1,0 +1,42 @@
+body {
+  padding-top: 5rem;
+}
+
+h2 {
+  font-size: 2vw;
+}
+
+.starter-template {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.full-width {
+  width: 100vw;
+  position: relative;
+  margin-left: -50vw;
+  height: 100px;
+  /* margin-top: 100px; */
+  left: 50%;
+}
+
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+
+.tableFixHead { overflow-y: auto; height: 600px; }
+
+table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 16px; }
+th     { background:#000; }

@@ -1,0 +1,19 @@
+{% extends "graphs/base_template.html" %}
+{% load static %}
+
+{% block content %}
+
+<div id="dataMonth" data-months-url="{% url 'ajax_load_months' %}" class="form-group row">
+  <label for="inputYear" clas="col-md-3 col-sm-2">Year</label>
+  <div class="col-md-3 col-sm-10">
+    <select id="inputYear" class="form-control">
+      <option selected>---------</option>
+      {% for year in years %}
+      <option value="{{ year }}">{{ year }}</option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
+<div id="months" class=""></div>
+{% endblock %}

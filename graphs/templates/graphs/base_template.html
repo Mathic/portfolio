@@ -1,0 +1,75 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta property="og:url"                content="https://swarmproject.herokuapp.com/graphs/" />
+  <meta property="og:type"               content="website" />
+  <meta property="og:title"              content="TSES3002 Group A Swarm Project" />
+  <meta property="og:description"        content="Average temperature and precipitation per year in Ottawa and Victoria" />
+  <meta property="og:image"              content="{% static 'graphs/img/yt_graph.png' %}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Jekyll v3.8.5">
+  <title>Group A Swarm Project</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/starter-template/">
+
+  <!-- Bootstrap core CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'graphs/css/starter-template.css' %}" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="{% url 'swarm' %}">Swarm Project Winter 2019</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item {% if nbar == 'graphs' %}active{% endif %}">
+          <a class="nav-link" href="{% url 'graphs' %}">Graphs<span class="sr-only">(current)</span></a>
+        </li>
+        <!-- <li class="nav-item dropdown {% if nbar == 'data' %}active{% endif %}">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdowndata" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Data</a>
+          <div class="dropdown-menu" aria-labelledby="dropdowndata">
+
+          </div>
+        </li> -->
+        <li class="nav-item {% if nbar == 'data_oy' %}active{% endif %}">
+          <a class="nav-link" href="{% url 'data_ottawa' %}">Ottawa Yearly Data</a>
+        </li>
+        <li class="nav-item {% if nbar == 'data_vy' %}active{% endif %}">
+          <a class="nav-link" href="{% url 'data_victoria' %}">Victoria Yearly Data</a>
+        </li>
+        <li class="nav-item {% if nbar == 'data_m' %}active{% endif %}">
+          <a class="nav-link" href="{% url 'data_month' %}">Monthly Data</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main role="main" class="container">
+
+    {% block content %}{% endblock %}
+
+  </main><!-- /.container -->
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"><\/script>')</script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="{% static 'graphs/js/data.js' %}"></script>
+  <script type="text/javascript" src="{% static 'graphs/js/months.js' %}"></script>
+</body>
+</html>

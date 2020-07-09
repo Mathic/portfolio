@@ -1,0 +1,55 @@
+{% extends "graphs/base_template.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="d-flex justify-content-end">
+  <div class="alert alert-success col-3 col-md-3 col-sm-2 position-fixed" id="success-alert" style="display:none">
+    Finished loading!
+  </div>
+</div>
+
+<div class="d-flex justify-content-end">
+  <div class="alert alert-info col-3 col-md-3 col-sm-2 position-fixed" id="loading-alert" style="display:none">
+    Please wait... loading
+  </div>
+</div>
+
+<h2>Graphs</h2>
+<div class="row full-width">
+  <ul id="chartChooser" class="nav nav-pills col-2 flex-column">
+    <li class="nav-item">
+      <a id="api/chart/year_avg_temp" class="nav-link btn-outline-dark" href="#">
+        Yearly Average Temperature
+      </a>
+    </li>
+    <li class="nav-item">
+      <a id="api/chart/ottawa_seasonal" class="nav-link btn-outline-dark" href="#">
+        Ottawa Seasonal Precipitation
+      </a>
+    </li>
+    <li class="nav-item">
+      <a id="api/chart/victoria_seasonal" class="nav-link btn-outline-dark" href="#">
+        Victoria Seasonal Precipitation
+      </a>
+    </li>
+    <li class="nav-item">
+      <a id="api/chart/ottawa_monthly" class="nav-link btn-outline-dark" href="#">
+        Ottawa Climate Diagram 1926-2018
+      </a>
+    </li>
+    <li class="nav-item">
+      <a id="api/chart/victoria_monthly" class="nav-link btn-outline-dark" href="#">
+        Victoria Climate Diagram 1926-2018
+      </a>
+    </li>
+  </ul>
+
+  <div class="col-10">
+    <div id="plotlyChart" style="width:100%; height:800px;"></div>
+  </div>
+</div>
+
+<script type="text/javascript" src="{% static 'graphs/js/graph.js' %}"></script>
+
+{% endblock %}

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'info',
     'calorie',
     'chocolate',
+    'graphs',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -1,0 +1,35 @@
+{% extends "graphs/base_template.html" %}
+{% load static %}
+
+{% block content %}
+<div class="d-flex justify-content-end">
+  <div class="alert alert-success col-3 col-md-3 col-sm-2 position-fixed" id="success-alert" style="display:none">
+    Data saved!
+  </div>
+</div>
+
+<div class="d-flex justify-content-end">
+  <div class="alert alert-danger col-3 col-md-3 col-sm-2 position-fixed" id="error-alert" style="display:none">
+    Something went wrong
+  </div>
+</div>
+
+<div class="starter-template">
+  <h2>Add climate data</h2>
+  <p class="lead">Ottawa average temperature and precipitation from 1929-2018</p>
+</div>
+
+<div id="climateForm" class="form-group row" data-years-url="{% url 'ajax_load_years' %}" data-save-url="{% url 'ajax_save_data' %}">
+  <label for="inputName" clas="col-md-3 col-sm-2">Name</label>
+  <div class="col-md-3 col-sm-10">
+    <select id="inputName" class="form-control">
+      <option selected>---------</option>
+      {% for name in names %}
+      <option value="{{ name.id }}">{{ name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div id="inputYear"></div>
+</div>
+
+{% endblock %}
