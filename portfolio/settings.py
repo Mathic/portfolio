@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     # 'mathfilters',
     'rest_framework',
     'plotly',
-    'seaborn',
     'info',
     'calorie',
     'chocolate',
